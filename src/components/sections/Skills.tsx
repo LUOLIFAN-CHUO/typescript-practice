@@ -47,7 +47,7 @@ export function Skills({ dark, activeTab, setActiveTab }: SkillsProps) {
           >
             <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
               <img
-                src={skill.image}
+                src={new URL(skill.image, import.meta.env.BASE_URL).href}
                 alt={skill.title}
                 className="w-16 h-16 object-contain rounded-lg shadow-md"
               />
