@@ -19,7 +19,7 @@ export function Projects({ dark }: ProjectsProps) {
             className="flex flex-col rounded-2xl overflow-hidden shadow-xl border border-gray-300 dark:border-white/10 backdrop-blur-md bg-white/80 dark:bg-white/10 hover:scale-[1.02] transform transition duration-300"
           >
             <img
-              src={new URL(project.image, import.meta.env.BASE_URL).href}
+              src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}`}
               alt={project.title}
               className="w-full h-48 object-cover object-top"
             />

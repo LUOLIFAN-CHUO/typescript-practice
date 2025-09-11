@@ -8,7 +8,7 @@ export function About({ dark }: { dark: boolean }) {
         <p className={`text-xl ${dark ? "text-blue-400" : "text-blue-600"}`}>{about.title}</p>
         <p className={`text-base ${dark ? "text-gray-100" : "text-gray-800"}`}>{about.description}</p>
       </div>
-      <img src={new URL(about.image, import.meta.env.BASE_URL).href} alt="Developer illustration" className="w-80 mx-auto hidden md:block" />
+      <img src={`${import.meta.env.BASE_URL}${about.image.replace(/^\//, '')}`} alt="Developer illustration" className="w-80 mx-auto hidden md:block" />
     </section>
   );
 }

@@ -12,7 +12,7 @@ export function Education({ dark }: { dark: boolean }) {
               ${dark ? "bg-white/10 hover:bg-white/20" : "bg-white hover:bg-gray-100"}`}
           >
             <div className="flex items-center gap-4 mb-2">
-              <img src={new URL(item.image, import.meta.env.BASE_URL).href} width="48" height="48" className="rounded-full" alt={`${item.school} logo`} />
+              <img src={`${import.meta.env.BASE_URL}${item.image.replace(/^\//, '')}`} width="48" height="48" className="rounded-full" alt={`${item.school} logo`} />
               <div>
                 <h3 className={`text-lg font-semibold ${dark ? "text-white" : "text-gray-900"}`}>{item.school}</h3>
                 <p className={`text-sm ${dark ? "text-gray-300" : "text-gray-800"}`}>{item.degree}, {item.duration}</p>
