@@ -1,74 +1,53 @@
-import React from "react";
-import { Card, CardContent } from "../ui/card";
-import { Button } from "../ui/button";// adjust imports
-import { skills as skillsData } from "../../data/skills"; // your skills data file
+import { useState } from 'react';
+import { Code2, Layers3 } from 'lucide-react';
+import { learningRecords, skillCategories, type SkillCategoryId } from '@/data/skills';
+import { assetUrl } from '@/lib/utils';
+import { ImageDialog } from '@/components/ui/ImageDialog';
+import { SectionHeading } from '@/components/ui/SectionHeading';
 
-interface SkillsProps {
-  dark: boolean;
-  activeTab: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-}
+export function Skills() {
+  const [activeTab, setActiveTab] = useState<SkillCategoryId>('cloud');
+  const [expandedImage, setExpandedImage] = useState<{ src: string; alt: string } | null>(null);
+  const activeCategory = skillCategories.find((category) => category.id === activeTab) ?? skillCategories[0];
 
-export function Skills({ dark, activeTab, setActiveTab }: SkillsProps) {
   return (
-    <section id="skills" className="max-w-6xl mx-auto px-6 py-12">
-      <h2 className="text-3xl font-bold text-green-400 mb-6">Skills</h2>
+    <section id="skills" className="section-shell">
+      <SectionHeading eyebrow="Skills" title="技術スタックと学習記録" description="クラウドを中心に、バックエンドとフロントエンドを横断して学習しています。" />
 
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {["frontend", "backend", "others"].map((tab) => (
-          <Button
-            key={tab}
-            variant={activeTab === tab ? "default" : "outline"}
-            className={`capitalize rounded-full px-4 py-2 text-sm font-medium transition ${
-              dark
-                ? activeTab === tab
-                  ? "bg-green-400 text-gray-900"
-                  : "border-gray-500 text-gray-300"
-                : activeTab === tab
-                ? "bg-green-400 text-white"
-                : "border-gray-500 text-gray-700"
-            }`}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab}
-          </Button>
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="スキルカテゴリー">
+        {skillCategories.map((category) => (
+          <button key={category.id} type="button" role="tab" aria-selected={activeTab === category.id} onClick={() => setActiveTab(category.id)} className={`rounded-full px-5 py-2.5 text-sm font-bold transition ${activeTab === category.id ? 'bg-slate-950 text-white shadow-lg dark:bg-teal-300 dark:text-slate-950' : 'border border-slate-300 bg-white/50 text-slate-600 hover:border-blue-400 dark:border-white/15 dark:bg-white/5 dark:text-slate-300'}`}>
+            {category.label}
+          </button>
         ))}
       </div>
 
-      {/* Skill Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {skillsData[activeTab].map((skill) => (
-          <Card
-            key={skill.title}
-            className={`transition transform hover:-translate-y-1 hover:shadow-xl rounded-2xl ${
-              dark ? "bg-white/10" : "bg-gray-100"
-            }`}
-          >
-            <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
-              <img
-                src={`${import.meta.env.BASE_URL}${skill.image.replace(/^\//, '')}`}
-                alt={skill.title}
-                className="w-16 h-16 object-contain rounded-lg shadow-md"
-              />
-              <h3
-                className={`font-semibold text-lg ${
-                  dark ? "text-white" : "text-gray-800"
-                }`}
-              >
-                {skill.title}
-              </h3>
-              <p
-                className={`text-sm ${
-                  dark ? "text-gray-300" : "text-gray-600"
-                }`}
-              >
-                {skill.description}
-              </p>
-            </CardContent>
-          </Card>
+      <div className="mt-7 grid gap-5 md:grid-cols-3">
+        {activeCategory.items.map((skill, index) => (
+          <article key={skill.title} className="glass-card p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-100 font-black text-blue-700 dark:bg-teal-300/10 dark:text-teal-300">{index === 0 ? <Layers3 className="h-5 w-5" /> : <Code2 className="h-5 w-5" />}</div>
+              <span className="tag">{skill.level}</span>
+            </div>
+            <h3 className="mt-6 text-xl font-black text-slate-950 dark:text-white">{skill.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{skill.description}</p>
+          </article>
         ))}
       </div>
+
+      <div className="mt-12">
+        <h3 className="text-xl font-black text-slate-950 dark:text-white">paiza 学習記録</h3>
+        <p className="mt-2 text-slate-600 dark:text-slate-300">PythonとSQLを中心に、アルゴリズム問題を通じて実践的なコーディング力を継続して強化しています。</p>
+        <div className="mt-6 grid gap-5 sm:grid-cols-3">
+          {learningRecords.map((record) => (
+            <button key={record.title} type="button" onClick={() => setExpandedImage({ src: record.image, alt: record.title })} className="group glass-card overflow-hidden p-3 text-left">
+              <img src={assetUrl(record.image)} alt={`${record.title} 学習記録`} className="h-40 w-full rounded-2xl object-cover object-top transition duration-300 group-hover:scale-[1.02]" />
+              <span className="block px-2 pb-2 pt-4 font-bold text-slate-800 dark:text-slate-100">{record.title}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      {expandedImage && <ImageDialog src={expandedImage.src} alt={expandedImage.alt} onClose={() => setExpandedImage(null)} />}
     </section>
   );
 }

@@ -1,29 +1,22 @@
-export const projects = [
+export interface Project {
+  title: string;
+  eyebrow: string;
+  image: string;
+  description: string;
+  stack: string[];
+  liveLink?: string;
+  articleLink?: string;
+}
+
+export const projects: Project[] = [
   {
-    title: "Grievance Redress System",
-    image: "/images/grs.png",
+    title: 'Cloud Resume Challenge',
+    eyebrow: 'Serverless portfolio on AWS',
+    image: '/images/architecture.png',
     description:
-      "Platform for institutional grievance handling with role-based access and user feedback loop.",
-    stack: ["PHP", "CodeIgniter 4", "MySQL", "Bootstrap", "AJAX"],
-    live_link: "https://grs.example.com",
-    code_repo: "https://github.com/username/grs-project",
-  },
-  {
-    title: "Developer Portfolio",
-    image: "/images/portfolio_ui.png",
-    description:
-      "Minimal, responsive portfolio site with React, Tailwind, and smooth animations.",
-    stack: ["React", "Tailwind CSS", "Vite"],
-    live_link: "https://jroyantor.dev",
-    code_repo: "https://github.com/username/portfolio",
-  },
-  {
-    title: "Multilingual Dictionary",
-    image: "/images/multilingual.png",
-    description:
-      "English–Bengali–Multilingual one-word translator with GRE/SAT word tests.",
-    stack: ["Vue.js", "Laravel", "API", "MySQL"],
-    live_link: "https://dict.example.com",
-    code_repo: "https://github.com/username/dictionary-app",
+      'S3とCloudFrontによる静的ホスティング、API Gateway・Lambda・DynamoDBによる訪問者カウンター、TerraformとGitHub Actionsによるテスト・デプロイを組み合わせたクラウド履歴書です。',
+    stack: ['React', 'TypeScript', 'AWS', 'Python', 'Terraform', 'GitHub Actions'],
+    liveLink: 'https://dyp8879eswsdu.cloudfront.net/',
+    articleLink: 'https://qiita.com/Rikihann',
   },
 ];

@@ -3,22 +3,27 @@ export interface EducationItem {
   degree: string;
   duration: string;
   description: string;
-  image: string;
+}
+
+export interface CertificationItem {
+  name: string;
+  status: string;
 }
 
 export const education: EducationItem[] = [
-    {
-      school: "Stanford University",
-      degree: "MSc. in Computer Science and Engineering",
-      duration: "May 2019 – May 2023",
-      description: "Continuing a master's in Information Security focusing on cybersecurity protocols, network defense systems, and ethical hacking practices.",
-      image: "/images/stanford.png"
-  },
   {
-    school: "Bangladesh University of Engineering and Technology",
-    degree: "BSc. Engineering in Computer Science and Engineering",
-    duration: "2014-2018",
-    description: "Specialized in software engineering, algorithms, databases, and web technologies with hands-on project development.",
-    image: "/images/buet.png"
-  }
+    school: '中央大学',
+    degree: '先進理工学部 電気電子情報通信工学科',
+    duration: '2030年卒業予定',
+    description:
+      '電気・電子・情報通信の基礎を学びながら、クラウドとソフトウェア開発の実践力を高めています。',
+  },
+];
+
+export const certifications: CertificationItem[] = [
+  { name: 'TOEFL iBT', status: '101' },
+  { name: '基本情報技術者', status: '取得済み' },
+  { name: 'AWS Certified Cloud Practitioner', status: '2026年11月受験予定' },
+  { name: '応用情報技術者', status: '2026年11月受験予定' },
+  { name: 'AWS Certified Solutions Architect – Associate', status: '2027年3月受験予定' },
 ];

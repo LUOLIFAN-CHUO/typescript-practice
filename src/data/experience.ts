@@ -1,24 +1,18 @@
 export interface ExperienceItem {
-  company: string;
+  organization: string;
   role: string;
-  duration: string;
+  category: string;
   description: string;
   image: string;
 }
 
 export const experience: ExperienceItem[] = [
   {
-    company: "Meta",
-    role: "Senior Software Engineer",
-    duration: "Nov 2024 – Present",
-    description: "Leading software system enhancements, maintaining secure financial IT infrastructure, and supporting digital banking innovations.",
-    image: "/images/meta.png"
+    organization: 'AWS Japan',
+    role: 'クラウドインフラ構築実習',
+    category: 'インターンシップ',
+    description:
+      'トランスコスモスの研修プログラムを通じてAWS Japan本社でのインターンシップに参加。アーキテクチャ図を確認し、チュートリアルに沿ってAWS環境を構築する実習を行いました。',
+    image: '/images/aws-internship.jpg',
   },
-  {
-    company: "Google",
-    role: "Software Engineer II",
-    duration: "Nov 2023 – Nov 2024",
-    description: "Developed scalable web apps using Laravel and Vue.js, contributed to Agile teams, and integrated third-party APIs for dynamic features.",
-    image: "/images/google.png"
-  }
 ];

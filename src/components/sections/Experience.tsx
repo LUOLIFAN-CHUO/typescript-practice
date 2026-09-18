@@ -1,29 +1,36 @@
-import { experience, ExperienceItem } from "../../data/experience";
+import { useState } from 'react';
+import { Building2, Expand, MapPin } from 'lucide-react';
+import { experience } from '@/data/experience';
+import { assetUrl } from '@/lib/utils';
+import { ImageDialog } from '@/components/ui/ImageDialog';
+import { SectionHeading } from '@/components/ui/SectionHeading';
 
-export function Experience({ dark }: { dark: boolean }) {
+export function Experience() {
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
+
   return (
-    <section id="experience" className="max-w-6xl mx-auto px-6 py-12 space-y-8">
-      <h2 className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">Experience</h2>
-      <div className="space-y-6">
-        {experience.map((item: ExperienceItem) => (
-          <div
-            key={item.company}
-            className={`group relative p-6 rounded-2xl shadow-md border border-transparent hover:border-emerald-400 transition-all duration-300
-              ${dark ? "bg-white/10 hover:bg-white/20" : "bg-gray-100 hover:bg-white"}`}
-          >
-            <div className="flex items-center gap-4 mb-2">
-              <img src={`${import.meta.env.BASE_URL}${item.image.replace(/^\//, '')}`} width="48" height="48" className="rounded-full" alt={`${item.company} logo`} />
-              <div>
-                <h3 className={`text-lg font-semibold ${dark ? "text-white" : "text-gray-900"}`}>{item.company}</h3>
-                <p className={`text-sm ${dark ? "text-gray-300" : "text-gray-800"}`}>{item.role}, {item.duration}</p>
-              </div>
+    <section id="experience" className="section-shell">
+      <SectionHeading eyebrow="Experience" title="実践から学んだこと" description="技術を知識で終わらせず、実際の環境で構築して理解することを大切にしています。" />
+      {experience.map((item) => (
+        <article key={item.organization} className="glass-card grid overflow-hidden lg:grid-cols-[0.95fr_1.05fr]">
+          <button type="button" className="group relative min-h-72 overflow-hidden text-left" onClick={() => setExpandedImage(item.image)} aria-label="AWS Japan インターンシップ写真を拡大する">
+            <img src={assetUrl(item.image)} alt="AWS Japan インターンシップ参加者" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+            <span className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
+            <span className="absolute bottom-5 right-5 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-slate-900 shadow-lg"><Expand className="h-5 w-5" /></span>
+          </button>
+          <div className="p-7 sm:p-10">
+            <span className="tag">{item.category}</span>
+            <h3 className="mt-6 text-3xl font-black text-slate-950 dark:text-white">{item.organization}</h3>
+            <p className="mt-2 text-lg font-bold text-blue-600 dark:text-teal-300">{item.role}</p>
+            <p className="mt-6 leading-8 text-slate-600 dark:text-slate-300">{item.description}</p>
+            <div className="mt-8 flex flex-wrap gap-5 text-sm text-slate-500 dark:text-slate-400">
+              <span className="inline-flex items-center gap-2"><Building2 className="h-4 w-4" /> AWS Japan</span>
+              <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4" /> 東京</span>
             </div>
-            <p className={`text-sm mt-2 max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-500 ease-in-out ${dark ? "text-gray-300" : "text-gray-900"}`}>
-              {item.description}
-            </p>
           </div>
-        ))}
-      </div>
+        </article>
+      ))}
+      {expandedImage && <ImageDialog src={expandedImage} alt="AWS Japan インターンシップ参加者" onClose={() => setExpandedImage(null)} />}
     </section>
   );
 }

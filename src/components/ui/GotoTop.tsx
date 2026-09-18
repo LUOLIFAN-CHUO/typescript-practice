@@ -29,7 +29,7 @@ const GoToTopButton = () => {
       group bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-500 dark:from-indigo-700 dark:via-purple-700 dark:to-pink-600
       shadow-xl hover:shadow-2xl backdrop-blur-xl rounded-full p-4
       text-white dark:text-white hover:scale-110 transform transition-transform duration-300 border border-white/20`}
-      aria-label="Scroll to top"
+      aria-label="ページ上部へ戻る"
     >
       <ArrowUp size={20} className="animate-pulse group-hover:animate-none" />
     </button>

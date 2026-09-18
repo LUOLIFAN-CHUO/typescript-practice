@@ -1,93 +1,58 @@
-import { useState } from "react";
-import { Button } from "../ui/button";
-import { Sun, Moon, Linkedin, Mail, Github, X, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { Github, Linkedin, Menu, Moon, Sun, X } from 'lucide-react';
+import { navigation, site } from '@/data/site';
 
 interface NavbarProps {
   dark: boolean;
   setDark: (value: boolean) => void;
 }
 
-const sections = ["about", "experience", "education", "skills", "projects", "contact"];
-
-const socialLinks = [
-  { href: "https://www.linkedin.com/in/yourusername/", icon: <Linkedin /> },
-  { href: "https://www.twitter.com/yourusername/", icon: <span className="pi pi-twitter"></span> },
-  { href: "https://www.github.com/yourusername/", icon: <Github /> },
-];
-
-export const Navbar = ({ dark, setDark }: NavbarProps) => {
+export function Navbar({ dark, setDark }: NavbarProps) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <>
-      {/* Desktop + Mobile Navbar */}
-      <nav className={`backdrop-blur-xl rounded-xl px-6 py-4 flex justify-between items-center mb-12 shadow-lg
-        ${dark ? "bg-white/10" : "bg-gray-200/80"}`}>
-        
-        {/* Logo */}
-        <h1 className={`text-3xl font-bold ${dark ? "text-blue-400" : "text-blue-600"}`}>
-          username.
-        </h1>
+    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl dark:border-white/10 dark:bg-[#07111f]/75">
+      <nav className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8 lg:px-10" aria-label="メインナビゲーション">
+        <a href="#about" className="group flex items-center gap-3 font-black tracking-tight">
+          <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-teal-400 text-sm text-white shadow-lg shadow-blue-500/20">LR</span>
+          <span className="hidden sm:block">{site.name}<span className="text-blue-600 dark:text-teal-300">.</span></span>
+        </a>
 
-        {/* Mobile toggle */}
-        <div className="lg:hidden">
-          <Button onClick={() => setMobileNavOpen(!mobileNavOpen)} variant="ghost">
-            {mobileNavOpen ? <X /> : <span className="pi pi-bars"></span>}
-          </Button>
-        </div>
-
-        {/* Desktop links */}
-        <div className="hidden lg:flex space-x-6 items-center">
-          {sections.map((section) => (
-            <a key={section} href={`#${section}`} className="hover:underline transition-colors duration-200">
-              {section.charAt(0).toUpperCase() + section.slice(1)}
+        <div className="hidden items-center gap-5 lg:flex">
+          {navigation.map((item) => (
+            <a key={item.href} href={item.href} className="text-sm font-medium text-slate-600 transition hover:text-blue-600 dark:text-slate-300 dark:hover:text-teal-300">
+              {item.label}
             </a>
           ))}
+        </div>
 
-          {/* Social icons */}
-          <div className="flex space-x-4 items-center">
-            {socialLinks.map(({ href, icon }, i) => (
-              <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
-                {icon}
-              </a>
-            ))}
-          </div>
-
-          {/* Theme toggle */}
-          <Button variant="ghost" size="icon" onClick={() => setDark(!dark)}>
-            {dark ? <Sun /> : <Moon />}
-          </Button>
+        <div className="flex items-center gap-1">
+          <a href={site.github} target="_blank" rel="noreferrer" className="hidden rounded-xl p-2 text-slate-600 transition hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-teal-300 sm:block" aria-label="GitHub">
+            <Github className="h-5 w-5" />
+          </a>
+          <a href={site.linkedin} target="_blank" rel="noreferrer" className="hidden rounded-xl p-2 text-slate-600 transition hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-teal-300 sm:block" aria-label="LinkedIn">
+            <Linkedin className="h-5 w-5" />
+          </a>
+          <button type="button" onClick={() => setDark(!dark)} className="rounded-xl p-2 text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10" aria-label={dark ? 'ライトモードに切り替える' : 'ダークモードに切り替える'}>
+            {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+          <button type="button" onClick={() => setMobileNavOpen((open) => !open)} className="rounded-xl p-2 text-slate-700 lg:hidden dark:text-slate-200" aria-expanded={mobileNavOpen} aria-controls="mobile-menu" aria-label="メニューを開閉する">
+            {mobileNavOpen ? <X /> : <Menu />}
+          </button>
         </div>
       </nav>
 
-      {/* Mobile nav */}
       {mobileNavOpen && (
-        <div className="lg:hidden flex flex-col items-center text-center space-y-4 mb-6">
-          {sections.map((section) => (
-            <a
-              key={section}
-              href={`#${section}`}
-              onClick={() => setMobileNavOpen(false)}
-              className="hover:underline transition-colors duration-200"
-            >
-              {section.charAt(0).toUpperCase() + section.slice(1)}
-            </a>
-          ))}
-
-          <div className="flex space-x-6 mt-4 justify-center items-center">
-            {socialLinks.map(({ href, icon }, i) => (
-              <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
-                {icon}
+        <div id="mobile-menu" className="border-t border-slate-200/70 bg-white/95 px-5 py-5 lg:hidden dark:border-white/10 dark:bg-[#07111f]/95">
+          <div className="mx-auto grid max-w-6xl gap-1">
+            {navigation.map((item) => (
+              <a key={item.href} href={item.href} onClick={() => setMobileNavOpen(false)} className="rounded-xl px-4 py-3 font-medium hover:bg-blue-50 dark:hover:bg-white/10">
+                {item.label}
               </a>
             ))}
-
-            {/* Theme toggle */}
-            <Button variant="ghost" size="icon" onClick={() => setDark(!dark)}>
-              {dark ? <Sun /> : <Moon />}
-            </Button>
           </div>
         </div>
       )}
-    </>
+    </header>
   );
-};
+}
