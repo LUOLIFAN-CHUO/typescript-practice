@@ -1,7 +1,7 @@
 export const about = {
   name: 'ラ・リキハン',
   romanizedName: 'Lifan Luo',
-  title: 'Cloud Engineer Candidate',
+  title: 'クラウド・インフラエンジニア志望',
   location: '東京都',
   description:
     'クラウドインフラの構築と自動化に強い関心を持ち、AWSを中心に実際に手を動かしながら学んでいます。Web・クラウド・AIをつなぎ、サービスに価値を届けられるエンジニアを目指しています。',

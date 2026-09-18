@@ -17,6 +17,7 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { level: 1, name: /ラ・リキハン/ })).toBeInTheDocument();
+    expect(screen.getByText('クラウド・インフラエンジニア志望')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '自己PRとキャリア目標' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Cloud Resume Challenge' })).toBeInTheDocument();
     expect(screen.getByRole('navigation', { name: 'メインナビゲーション' })).toBeInTheDocument();
