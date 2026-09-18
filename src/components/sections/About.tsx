@@ -13,7 +13,6 @@ export function About() {
           <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-slate-500 dark:text-slate-400">{about.romanizedName}</p>
           <h1 className="text-5xl font-black leading-[1.06] tracking-[-0.05em] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
             {about.name}
-            <span className="mt-3 block bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 bg-clip-text text-3xl text-transparent sm:text-4xl lg:text-5xl">{about.title}</span>
           </h1>
           <p className="mt-7 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">{about.description}</p>
 
