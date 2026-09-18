@@ -21,7 +21,7 @@ export const education: EducationItem[] = [
 ];
 
 export const certifications: CertificationItem[] = [
-  { name: 'TOEFL iBT', status: '101' },
+  { name: 'TOEFL iBT', status: '101点' },
   { name: '基本情報技術者', status: '取得済み' },
   { name: 'AWS Certified Cloud Practitioner', status: '2026年11月受験予定' },
   { name: '応用情報技術者', status: '2026年11月受験予定' },
