@@ -26,6 +26,7 @@ AWSのサーバーレスサービスとGitHub Actionsを組み合わせ、
 - TypeScriptによる型チェック
 - 自動テスト
 - Viteによるビルド
+- Amazon Bedrock RAG による履歴書 AI Chatbot
 
 ---
 
@@ -67,3 +68,11 @@ Browser
 │  DynamoDB    │
 │ Visitor Count│
 └──────────────┘
+
+---
+
+## AI Chatbot
+
+画面右下の「AI に質問」から、候補者のスキル、プロジェクト、経験、勤務可能時間を日本語で質問できます。回答は履歴書の RAG API を根拠に生成され、参照元も表示されます。
+
+RAG API の URL は `VITE_RAG_API_URL` で変更できます。未設定の場合は現在の本番 API を使用します。
