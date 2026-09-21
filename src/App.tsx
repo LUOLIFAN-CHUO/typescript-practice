@@ -8,6 +8,7 @@ import { Navbar } from './components/sections/Navbar';
 import { Profile } from './components/sections/Profile';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
+import { RagChatbot } from './components/RagChatbot';
 
 function getInitialTheme() {
   const savedTheme = window.localStorage.getItem('portfolio-theme');
@@ -43,6 +44,7 @@ function App() {
       </main>
 
       <GoToTopButton />
+      <RagChatbot />
     </div>
   );
 }
