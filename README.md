@@ -2,7 +2,7 @@
 
 日本語 | [English](./README.en.md)
 
-React、TypeScript、Tailwind CSS、Vite で構築した日本語のクラウド履歴書です。Amazon S3 と CloudFront から配信し、訪問者カウンターと Amazon Bedrock ベースの RAG アシスタントを統合しています。
+React、TypeScript、Tailwind CSS、Vite で構築した日本語のクラウド履歴書です。Amazon S3 と CloudFront から配信し、訪問者カウンター、Amazon Bedrock ベースの RAG アシスタント、IT Trends ページを統合しています。
 
 **Demo:** https://dyp8879eswsdu.cloudfront.net/
 
@@ -20,14 +20,19 @@ React、TypeScript、Tailwind CSS、Vite で構築した日本語のクラウド
 - `GET /count` を利用する型安全な訪問者カウンター
 - `POST /ask` を利用する日本語 RAG チャット UI
 - 回答、出典、読み込み、タイムアウト、API エラーの表示
+- Hacker News・Zenn・Qiita の記事を Gemini で日中英に要約する IT Trends ページ
 - ESLint、TypeScript、Vitest による自動検証
+- AWS CloudFront + S3 による HTTPS 配信
+- API Gateway + Lambda + DynamoDB による訪問者カウンター
+- GitHub Actions による CI/CD
 
 ## 実行時フロー
 
 ```text
 Browser → CloudFront → Amazon S3 → React / TypeScript UI
                                   ├─ GET /count → API Gateway → Lambda → DynamoDB
-                                  └─ POST /ask  → API Gateway → Lambda → Bedrock Knowledge Base
+                                  ├─ POST /ask  → API Gateway → Lambda → Bedrock Knowledge Base
+                                  └─ IT Trends  → 公開読み取り専用の S3 JSON
 ```
 
 ## 主な構成
@@ -47,8 +52,15 @@ src/data/                       表示コンテンツ
 
 ```powershell
 npm install
+Copy-Item .env.example .env.local
 npm run dev
 ```
+
+RAG API の URL は `VITE_RAG_API_URL`、トレンドデータの URL は `VITE_TRENDS_DATA_URL` で変更できます。未設定の場合は本番 URL を使用します。
+
+## IT Trends
+
+履歴書の「最近のIT業界トレンドを見る」から、3 日ごとに更新される IT Trends ページを開けます。記事は情報源・カテゴリーで絞り込みでき、要約表示を日本語・中国語・英語に切り替えられます。
 
 ## 品質チェック
 
@@ -69,6 +81,7 @@ npm run build
 - Amazon S3 / CloudFront
 - Amazon API Gateway
 - GitHub Actions
+- Amazon Bedrock RAG
 
 ## セキュリティ方針
 
