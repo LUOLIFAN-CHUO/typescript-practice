@@ -1,5 +1,5 @@
 import { ArrowUpRight, CalendarDays } from 'lucide-react';
-import type { TrendItem } from '@/types/trends';
+import type { TrendItem, TrendLanguage } from '@/types/trends';
 
 const sourceLabels: Record<TrendItem['source'], string> = {
   'hacker-news': 'Hacker News',
@@ -9,9 +9,11 @@ const sourceLabels: Record<TrendItem['source'], string> = {
 
 interface TrendCardProps {
   item: TrendItem;
+  language: TrendLanguage;
+  readOriginalLabel: string;
 }
 
-export function TrendCard({ item }: TrendCardProps) {
+export function TrendCard({ item, language, readOriginalLabel }: TrendCardProps) {
   const publishedAt = new Intl.DateTimeFormat('ja-JP', {
     dateStyle: 'medium',
   }).format(new Date(item.publishedAt));
@@ -34,7 +36,7 @@ export function TrendCard({ item }: TrendCardProps) {
         {item.title}
       </h2>
       <p className="mt-4 flex-1 leading-7 text-slate-600 dark:text-slate-300">
-        {item.summary.ja}
+        {item.summary[language]?.trim() || item.summary.ja}
       </p>
 
       <div className="mt-5 flex flex-wrap gap-2">
@@ -42,7 +44,7 @@ export function TrendCard({ item }: TrendCardProps) {
       </div>
 
       <a href={item.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 font-bold text-blue-700 transition group-hover:gap-3 dark:text-teal-300">
-        原文を読む <ArrowUpRight className="h-4 w-4" />
+        {readOriginalLabel} <ArrowUpRight className="h-4 w-4" />
       </a>
     </article>
   );

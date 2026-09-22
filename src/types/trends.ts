@@ -2,9 +2,11 @@ export type TrendSource = 'hacker-news' | 'zenn' | 'qiita';
 
 export interface TrendSummary {
   ja: string;
-  zh: string;
-  en: string;
+  zh?: string;
+  en?: string;
 }
+
+export type TrendLanguage = keyof TrendSummary;
 
 export interface TrendItem {
   id: string;
