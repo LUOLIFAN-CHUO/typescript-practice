@@ -1,4 +1,4 @@
-import { ArrowDown, Cloud, Mail, MapPin } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Cloud, Mail, MapPin, Newspaper } from 'lucide-react';
 import { about } from '@/data/about';
 import { site } from '@/data/site';
 import { assetUrl } from '@/lib/utils';
@@ -23,6 +23,9 @@ export function About() {
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <a href="#projects" className="inline-flex items-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300">
               プロジェクトを見る <ArrowDown className="h-4 w-4" />
+            </a>
+            <a href="#/trends" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-teal-500 px-5 py-3 font-bold text-white shadow-xl shadow-blue-500/20 transition hover:-translate-y-0.5 hover:from-blue-700 hover:to-teal-600">
+              <Newspaper className="h-4 w-4" /> 最近のIT業界トレンドを見る <ArrowUpRight className="h-4 w-4" />
             </a>
             <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 rounded-2xl border border-slate-300 bg-white/60 px-5 py-3 font-bold text-slate-700 transition hover:border-blue-400 hover:text-blue-700 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:border-teal-300 dark:hover:text-teal-200">
               <Mail className="h-4 w-4" /> お問い合わせ

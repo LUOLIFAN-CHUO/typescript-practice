@@ -9,6 +9,7 @@ import { Profile } from './components/sections/Profile';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
 import { RagChatbot } from './components/RagChatbot';
+import { TrendsPage } from './pages/TrendsPage';
 
 function getInitialTheme() {
   const savedTheme = window.localStorage.getItem('portfolio-theme');
@@ -18,11 +19,20 @@ function getInitialTheme() {
 
 function App() {
   const [dark, setDark] = useState(getInitialTheme);
+  const [route, setRoute] = useState(window.location.hash);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
     window.localStorage.setItem('portfolio-theme', dark ? 'dark' : 'light');
   }, [dark]);
+
+  useEffect(() => {
+    const updateRoute = () => setRoute(window.location.hash);
+    window.addEventListener('hashchange', updateRoute);
+    return () => window.removeEventListener('hashchange', updateRoute);
+  }, []);
+
+  const showingTrends = route === '#/trends';
 
   return (
     <div className="min-h-screen overflow-hidden bg-slate-50 text-slate-800 transition-colors duration-300 dark:bg-[#07111f] dark:text-slate-100">
@@ -34,13 +44,19 @@ function App() {
       <Navbar dark={dark} setDark={setDark} />
 
       <main id="main-content" className="relative z-10">
-        <About />
-        <Profile />
-        <Experience />
-        <Education />
-        <Skills />
-        <Projects />
-        <Contact />
+        {showingTrends ? (
+          <TrendsPage />
+        ) : (
+          <>
+            <About />
+            <Profile />
+            <Experience />
+            <Education />
+            <Skills />
+            <Projects />
+            <Contact />
+          </>
+        )}
       </main>
 
       <GoToTopButton />

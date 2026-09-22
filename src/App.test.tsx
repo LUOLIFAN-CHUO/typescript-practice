@@ -9,6 +9,7 @@ vi.mock('@/services/visitorCounter', () => ({
 
 describe('App', () => {
   beforeEach(() => {
+    window.location.hash = '';
     window.localStorage.clear();
     vi.mocked(getVisitorCount).mockResolvedValue(25);
   });
@@ -21,5 +22,12 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: '自己PRとキャリア目標' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Cloud Resume Challenge' })).toBeInTheDocument();
     expect(screen.getByRole('navigation', { name: 'メインナビゲーション' })).toBeInTheDocument();
+  });
+
+  it('opens the trends page from the resume entry point', () => {
+    render(<App />);
+
+    const link = screen.getByRole('link', { name: /最近のIT業界トレンドを見る/ });
+    expect(link).toHaveAttribute('href', '#/trends');
   });
 });
