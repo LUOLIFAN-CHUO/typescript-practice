@@ -7,46 +7,43 @@ import { VisitorCounter } from '@/components/VisitorCounter';
 export function About() {
   return (
     <section id="about" className="section-shell pt-16 lg:pt-24">
-      <div className="grid items-center gap-12 lg:grid-cols-[1.12fr_0.88fr]">
-        <div>
+      <div className="mx-auto grid max-w-4xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_16rem]">
+        <div className="min-w-0">
           <div className="eyebrow"><Cloud className="h-4 w-4" /> Build · Learn · Improve</div>
           <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-slate-500 dark:text-slate-400">{about.romanizedName}</p>
-          <h1 className="text-5xl font-black leading-[1.06] tracking-[-0.05em] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
+          <h1 className="text-5xl font-black leading-[1.06] tracking-[-0.05em] text-slate-950 dark:text-white sm:text-6xl">
             {about.name}
           </h1>
-          <p className="mt-7 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">{about.description}</p>
+          <p className="mt-6 max-w-xl text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">{about.description}</p>
 
-          <div className="mt-7 flex flex-wrap gap-2">
+          <div className="mt-6 flex flex-wrap gap-2">
             {about.focus.map((item) => <span key={item} className="tag">{item}</span>)}
           </div>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a href="#projects" className="inline-flex items-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a href="#projects" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300">
               プロジェクトを見る <ArrowDown className="h-4 w-4" />
             </a>
-            <a href="#/trends" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-teal-500 px-5 py-3 font-bold text-white shadow-xl shadow-blue-500/20 transition hover:-translate-y-0.5 hover:from-blue-700 hover:to-teal-600">
+            <a href="#/trends" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-teal-500 px-5 py-3 font-bold text-white shadow-xl shadow-blue-500/20 transition hover:-translate-y-0.5 hover:from-blue-700 hover:to-teal-600">
               <Newspaper className="h-4 w-4" /> 最近のIT業界トレンドを見る <ArrowUpRight className="h-4 w-4" />
-            </a>
-            <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 rounded-2xl border border-slate-300 bg-white/60 px-5 py-3 font-bold text-slate-700 transition hover:border-blue-400 hover:text-blue-700 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:border-teal-300 dark:hover:text-teal-200">
-              <Mail className="h-4 w-4" /> お問い合わせ
             </a>
           </div>
 
-          <div className="mt-7 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-            <MapPin className="h-4 w-4" /> {about.location}
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-500 dark:text-slate-400">
+            <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 font-semibold text-slate-700 transition hover:text-blue-700 dark:text-slate-200 dark:hover:text-teal-200">
+              <Mail className="h-4 w-4" /> お問い合わせ
+            </a>
+            <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4" /> {about.location}</span>
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-md">
-          <div className="cloud-float absolute -right-6 -top-8 z-10 grid h-24 w-24 place-items-center rounded-3xl border border-white/20 bg-gradient-to-br from-blue-600 to-teal-400 text-white shadow-2xl shadow-blue-500/25">
-            <Cloud className="h-12 w-12" />
-          </div>
-          <div className="glass-card overflow-hidden p-3">
+        <div className="mx-auto w-full max-w-64 lg:mr-0">
+          <div className="glass-card overflow-hidden p-2">
             <div className="relative overflow-hidden rounded-[1.25rem]">
-              <img src={assetUrl(about.heroImage)} alt="東京の夜景" className="h-[29rem] w-full object-cover" />
+              <img src={assetUrl(about.heroImage)} alt="プロフィール写真" className="h-72 w-full object-cover object-center" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-teal-300">Live on AWS</p>
+              <div className="absolute bottom-0 left-0 right-0 p-3">
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-teal-300">Live on AWS</p>
                 <VisitorCounter />
               </div>
             </div>
