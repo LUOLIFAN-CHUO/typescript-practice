@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "AI-Powered Cloud Portfolio — System Architecture",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [1300, 620]
+  },
+  "components": [
+    {
+      "id": "visitor",
+      "type": "external",
+      "label": "访客浏览器",
+      "sublabel": "招聘方 / 面试官",
+      "pos": [25, 250],
+      "size": [170, 64]
+    },
+    {
+      "id": "portfolio_site",
+      "type": "frontend",
+      "label": "React 求职作品集",
+      "sublabel": "CloudFront + S3",
+      "pos": [240, 250],
+      "size": [205, 64]
+    },
+    {
+      "id": "visitor_api",
+      "type": "backend",
+      "label": "访客统计 API",
+      "sublabel": "API Gateway + Lambda",
+      "pos": [480, 80],
+      "size": [205, 64]
+    },
+    {
+      "id": "visitor_db",
+      "type": "database",
+      "label": "访客计数 DynamoDB",
+      "sublabel": "views counter",
+      "pos": [710, 80],
+      "size": [205, 64]
+    },
+    {
+      "id": "rag_api",
+      "type": "backend",
+      "label": "AI 履历问答 API",
+      "sublabel": "API Gateway + Lambda",
+      "pos": [480, 250],
+      "size": [205, 64]
+    },
+    {
+      "id": "bedrock",
+      "type": "external",
+      "label": "Amazon Bedrock RAG",
+      "sublabel": "技能 / 经验问答",
+      "pos": [710, 250],
+      "size": [205, 64]
+    },
+    {
+      "id": "scheduler",
+      "type": "cloud",
+      "label": "EventBridge Scheduler",
+      "sublabel": "每 3 天触发",
+      "pos": [25, 430],
+      "size": [205, 64]
+    },
+    {
+      "id": "trend_collector",
+      "type": "backend",
+      "label": "IT Trends Collector",
+      "sublabel": "Node.js Lambda",
+      "pos": [270, 430],
+      "size": [205, 64]
+    },
+    {
+      "id": "trend_sources",
+      "type": "external",
+      "label": "技术资讯来源",
+      "sublabel": "Hacker News / Zenn / Qiita",
+      "pos": [500, 430],
+      "size": [225, 64]
+    },
+    {
+      "id": "gemini",
+      "type": "external",
+      "label": "Gemini API",
+      "sublabel": "日中英摘要",
+      "pos": [760, 430],
+      "size": [205, 64]
+    },
+    {
+      "id": "trend_store",
+      "type": "database",
+      "label": "S3 news.json",
+      "sublabel": "公开只读趋势数据",
+      "pos": [1030, 430],
+      "size": [190, 64]
+    },
+    {
+      "id": "secrets",
+      "type": "security",
+      "label": "Secrets Manager",
+      "sublabel": "Gemini API Key",
+      "pos": [1030, 250],
+      "size": [190, 64]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "AWS ap-northeast-1 / 求职作品集平台",
+      "wraps": ["portfolio_site", "visitor_api", "visitor_db", "rag_api", "bedrock", "scheduler", "trend_collector", "trend_store", "secrets"],
+      "pad": 24
+    }
+  ],
+  "connections": [
+    { "from": "visitor", "to": "portfolio_site", "variant": "emphasis" },
+    { "from": "portfolio_site", "to": "visitor_api" },
+    { "from": "visitor_api", "to": "visitor_db", "variant": "emphasis" },
+    { "from": "portfolio_site", "to": "rag_api", "variant": "emphasis" },
+    { "from": "rag_api", "to": "bedrock", "variant": "emphasis" },
+    { "from": "scheduler", "to": "trend_collector", "variant": "emphasis" },
+    { "from": "trend_collector", "to": "trend_sources", "variant": "emphasis" },
+    { "from": "trend_collector", "to": "gemini", "label": "structured summary", "variant": "emphasis", "fromSide": "bottom", "toSide": "bottom", "via": [[372.5, 560], [862.5, 560]], "labelAt": [620, 580] },
+    { "from": "trend_collector", "to": "trend_store", "label": "PutObject", "variant": "emphasis", "fromSide": "top", "toSide": "top", "via": [[372.5, 340], [1125, 340]], "labelAt": [750, 330] },
+    { "from": "portfolio_site", "to": "trend_store", "label": "GET news.json / CORS", "variant": "emphasis", "route": "orthogonal-v" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "求职展示",
+      "items": ["React 作品集统一承载履历、项目和技能内容", "CloudFront + S3 提供 HTTPS 静态访问", "招聘方可从同一入口进入 AI 问答和趋势页面"]
+    },
+    {
+      "dot": "emerald",
+      "title": "三类服务能力",
+      "items": ["访客统计记录作品集访问量", "RAG 问答回答候选人的经验与技能", "IT Trends 展示行业信息处理能力"]
+    },
+    {
+      "dot": "rose",
+      "title": "安全与运维",
+      "items": ["API Key 放在 Secrets Manager", "各 Lambda 通过 API Gateway 或 Scheduler 调用", "CloudWatch 负责趋势任务的日志和错误监控"]
+    }
+  ]
+}

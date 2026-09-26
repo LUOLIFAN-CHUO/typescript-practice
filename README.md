@@ -1,6 +1,12 @@
 # AI-Powered Cloud Portfolio — Frontend
 
+<<<<<<< HEAD
 日本語 | [English](./README.en.md)
+=======
+AWS上に構築した、求職活動向けの AI 搭載ポートフォリオサイトのフロントエンドです。
+
+This repository contains the frontend of an AI-powered cloud portfolio for job applications.
+>>>>>>> 4116a8f (docs: add portfolio architecture diagram)
 
 React、TypeScript、Tailwind CSS、Vite で構築した日本語のクラウド履歴書です。Amazon S3 と CloudFront から配信し、訪問者カウンター、Amazon Bedrock ベースの RAG アシスタント、IT Trends ページを統合しています。
 
@@ -26,6 +32,7 @@ React、TypeScript、Tailwind CSS、Vite で構築した日本語のクラウド
 - API Gateway + Lambda + DynamoDB による訪問者カウンター
 - GitHub Actions による CI/CD
 
+<<<<<<< HEAD
 ## 実行時フロー
 
 ```text
@@ -49,6 +56,30 @@ src/data/                       表示コンテンツ
 ```
 
 ## ローカル開発
+=======
+---
+
+## Architecture / アーキテクチャ
+
+The portfolio frontend is served through CloudFront and S3. The React application calls three independent capabilities: visitor counting, AI resume Q&A, and the IT Trends feed.
+
+求職者向け作品集は CloudFront と S3 で配信されます。React アプリケーションは、訪問者カウンター、AI 履歴書 Q&A、IT Trends の 3 つの機能 API / データソースを利用します。
+
+See the [interactive system architecture diagram](docs/architecture/portfolio-architecture.html) for the complete high-level view.
+
+```text
+Browser
+   ↓
+CloudFront + S3 React Portfolio
+   ├── Visitor API → Lambda → DynamoDB
+   ├── Resume Q&A API → Lambda → Amazon Bedrock RAG
+   └── IT Trends page → S3 news.json
+```
+
+The diagram intentionally focuses on runtime components and trust boundaries. CI/CD, CloudWatch details, CORS, caching, and error handling are documented as supporting notes rather than additional connection lines.
+
+この図では実行時コンポーネントと信頼境界を中心に示し、CI/CD、CloudWatch、CORS、キャッシュ、エラー処理などの補足情報はカードにまとめています。
+>>>>>>> 4116a8f (docs: add portfolio architecture diagram)
 
 ```powershell
 npm install
