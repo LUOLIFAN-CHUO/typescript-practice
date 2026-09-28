@@ -9,6 +9,8 @@ import { Profile } from './components/sections/Profile';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
 import { RagChatbot } from './components/RagChatbot';
+import { journeyExperiences } from './data/journey';
+import { JourneyDetailPage } from './pages/JourneyDetailPage';
 import { TrendsPage } from './pages/TrendsPage';
 
 function getInitialTheme() {
@@ -33,6 +35,7 @@ function App() {
   }, []);
 
   const showingTrends = route === '#/trends';
+  const journeyItem = journeyExperiences.find((item) => route === `#/journey/${item.id}`);
 
   return (
     <div className="min-h-screen overflow-hidden bg-slate-50 text-slate-800 transition-colors duration-300 dark:bg-[#07111f] dark:text-slate-100">
@@ -44,7 +47,9 @@ function App() {
       <Navbar dark={dark} setDark={setDark} />
 
       <main id="main-content" className="relative z-10">
-        {showingTrends ? (
+        {journeyItem ? (
+          <JourneyDetailPage item={journeyItem} />
+        ) : showingTrends ? (
           <TrendsPage />
         ) : (
           <>

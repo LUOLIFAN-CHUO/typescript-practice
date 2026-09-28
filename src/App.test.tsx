@@ -27,7 +27,19 @@ describe('App', () => {
   it('opens the trends page from the resume entry point', () => {
     render(<App />);
 
-    const link = screen.getByRole('link', { name: /最近のIT業界トレンドを見る/ });
+    const link = screen.getByRole('link', { name: /ITトレンド/ });
     expect(link).toHaveAttribute('href', '#/trends');
+  });
+
+  it('shows the journey and opens a dedicated experience page', () => {
+    const { unmount } = render(<App />);
+    expect(screen.getAllByText('先進理工学部 電気電子情報通信工学科')).toHaveLength(2);
+    expect(screen.getByRole('link', { name: 'SALT2 Bootcampの詳細を見る' })).toHaveAttribute('href', '#/journey/salt2');
+    unmount();
+
+    window.location.hash = '#/journey/salt2';
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1, name: 'SALT2 Bootcamp' })).toBeInTheDocument();
+    expect(screen.getByText('約3週間のチーム開発')).toBeInTheDocument();
   });
 });
