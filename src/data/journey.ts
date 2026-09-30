@@ -9,7 +9,7 @@ export interface JourneyDeliverable {
 }
 
 export interface JourneyExperience {
-  id: 'aws' | 'salt2' | 'gci';
+  id: 'aws' | 'mikke' | 'salt2' | 'gci';
   type: 'experience';
   label: string;
   title: string;
@@ -17,8 +17,10 @@ export interface JourneyExperience {
   date: string;
   detail: string;
   points: string[];
+  pointsHeading?: string;
   deliverables?: JourneyDeliverable[];
   upcoming?: boolean;
+  featured?: boolean;
 }
 
 export interface JourneyMilestone {
@@ -71,15 +73,28 @@ export const journey: JourneyYear[] = [
       },
       {
         month: '10月',
-        weight: 2.65,
+        weight: 3.35,
         upcoming: true,
         events: [
+          {
+            id: 'mikke',
+            type: 'experience',
+            label: 'エンジニアインターン',
+            title: 'ミッケ株式会社',
+            summary: 'データマーケティング領域のプロダクト開発に参画予定。',
+            date: '2026.10.08〜',
+            detail: '2026年10月8日からエンジニアインターンとして勤務予定。募集要項では、データマーケティングに関わる社内プロダクトやダッシュボードの設計・開発が業務として挙げられています。実際に担当した内容は開始後に更新します。',
+            pointsHeading: '募集要項に記載された業務領域',
+            points: ['数理モデルを用いた社内プロダクト開発', 'ダッシュボードの設計・開発', 'チームでの開発'],
+            upcoming: true,
+            featured: true,
+          },
           {
             id: 'salt2',
             type: 'experience',
             label: 'AI · DEVELOPMENT',
             title: 'SALT2 Bootcamp',
-            summary: '約2か月のAI駆動開発。チーム開発と成果発表に取り組む。',
+            summary: 'AI駆動開発・チーム開発・成果発表。',
             date: '2026.10–11',
             detail: 'AIを活用しながら実際に手を動かして開発を学ぶ約2か月間のプログラム。約3週間のチーム開発と、計3回の発表会が予定されています。',
             points: ['AI駆動開発', '約3週間のチーム開発', '成果発表'],
@@ -90,7 +105,7 @@ export const journey: JourneyYear[] = [
             type: 'experience',
             label: '東京大学 松尾・岩澤研究室監修',
             title: 'GCI 2026 Winter',
-            summary: 'データ分析・機械学習の演習から、ビジネス課題への提案へ。',
+            summary: '松尾・岩澤研究室監修のデータ分析・事業提案。',
             date: '2026.10',
             detail: 'データサイエンスを通じてAIの基礎を学ぶ講座。Pythonによるデータ分析や機械学習の演習に取り組み、最終課題ではデータに基づく事業提案を目指します。',
             points: ['Python・データ分析', '機械学習の演習', '事業提案の最終課題'],

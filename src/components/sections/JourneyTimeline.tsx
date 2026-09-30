@@ -1,5 +1,40 @@
 import { ArrowUpRight } from 'lucide-react';
-import { journey } from '@/data/journey';
+import { journey, type JourneyEvent, type JourneyExperience, type JourneyMonth } from '@/data/journey';
+
+function JourneyEventItem({ event, variant }: { event: JourneyEvent; variant?: 'primary' | 'secondary' }) {
+  if (event.type === 'milestone') {
+    return <div className="journey-milestone"><strong>{event.title}</strong><span>{event.summary}</span></div>;
+  }
+
+  return (
+    <a className={`journey-experience${variant ? ` journey-experience-${variant}` : ''}`} href={`#/journey/${event.id}`} aria-label={`${event.title}の詳細を見る`}>
+      <span className="journey-kind">{event.label}</span>
+      <ArrowUpRight aria-hidden="true" className="journey-arrow h-5 w-5" />
+      <strong>{event.title}</strong>
+      <span className="journey-summary">{event.summary}</span>
+    </a>
+  );
+}
+
+function JourneyMonthEvents({ month }: { month: JourneyMonth }) {
+  const featured = month.events.find((event): event is JourneyExperience => event.type === 'experience' && Boolean(event.featured));
+
+  if (featured) {
+    return (
+      <div className="journey-events journey-events-featured">
+        <JourneyEventItem event={featured} variant="primary" />
+        <div className="journey-parallel-group">
+          <p className="journey-parallel-label">同時期に取り組む</p>
+          <div className="journey-parallel">
+            {month.events.filter((event) => event !== featured).map((event) => <JourneyEventItem key={event.title} event={event} variant="secondary" />)}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return <div className={`journey-events${month.events.length > 1 ? ' journey-events-pair' : ''}`}>{month.events.map((event) => <JourneyEventItem key={event.title} event={event} />)}</div>;
+}
 
 export function JourneyTimeline() {
   return (
@@ -22,21 +57,7 @@ export function JourneyTimeline() {
               <li className={`journey-month${month.upcoming ? ' journey-upcoming' : ''}`} key={`${year.year}-${month.month}`}>
                 <time className="journey-date" dateTime={`${year.year}-${month.month.slice(0, 2)}`}>{month.month}</time>
                 <span className="journey-dot" aria-hidden="true" />
-                <div className={`journey-events${month.events.length > 1 ? ' journey-events-pair' : ''}`}>
-                  {month.events.map((event) => event.type === 'milestone' ? (
-                    <div className="journey-milestone" key={event.title}>
-                      <strong>{event.title}</strong>
-                      <span>{event.summary}</span>
-                    </div>
-                  ) : (
-                    <a className="journey-experience" href={`#/journey/${event.id}`} key={event.id} aria-label={`${event.title}の詳細を見る`}>
-                      <span className="journey-kind">{event.label}</span>
-                      <ArrowUpRight aria-hidden="true" className="journey-arrow h-5 w-5" />
-                      <strong>{event.title}</strong>
-                      <span className="journey-summary">{event.summary}</span>
-                    </a>
-                  ))}
-                </div>
+                <JourneyMonthEvents month={month} />
               </li>
             ))}
           </ol>

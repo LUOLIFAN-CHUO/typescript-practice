@@ -17,7 +17,7 @@ export function JourneyDetailPage({ item }: JourneyDetailPageProps) {
         <h1 id="journey-detail-title" className="mt-2 text-4xl font-black leading-tight tracking-tight text-slate-950 dark:text-white sm:text-5xl">{item.title}</h1>
         <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">{item.detail}</p>
         <div className="mt-10 border-t border-slate-200 pt-7 dark:border-white/15">
-          <h2 className="text-sm font-bold tracking-widest text-blue-700 dark:text-teal-300">{item.upcoming ? '取り組む内容' : '取り組んだこと'}</h2>
+          <h2 className="text-sm font-bold tracking-widest text-blue-700 dark:text-teal-300">{item.pointsHeading ?? (item.upcoming ? '取り組む内容' : '取り組んだこと')}</h2>
           <ul className="mt-5 space-y-3">
             {item.points.map((point) => (
               <li key={point} className="flex items-start gap-3 text-slate-700 dark:text-slate-200"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-500" />{point}</li>

@@ -42,4 +42,17 @@ describe('App', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'SALT2 Bootcamp' })).toBeInTheDocument();
     expect(screen.getByText('約3週間のチーム開発')).toBeInTheDocument();
   });
+
+  it('presents the upcoming Mikke internship as the October highlight', () => {
+    const { unmount } = render(<App />);
+    expect(screen.getByRole('link', { name: 'ミッケ株式会社の詳細を見る' })).toHaveAttribute('href', '#/journey/mikke');
+    expect(screen.getByRole('link', { name: 'ミッケ株式会社のインターン詳細を見る' })).toHaveAttribute('href', '#/journey/mikke');
+    expect(screen.getByText('同時期に取り組む')).toBeInTheDocument();
+    unmount();
+
+    window.location.hash = '#/journey/mikke';
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1, name: 'ミッケ株式会社' })).toBeInTheDocument();
+    expect(screen.getByText('募集要項に記載された業務領域')).toBeInTheDocument();
+  });
 });
