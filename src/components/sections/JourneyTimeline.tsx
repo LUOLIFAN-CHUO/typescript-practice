@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { journey, type JourneyEvent, type JourneyExperience, type JourneyMonth } from '@/data/journey';
 
-function JourneyEventItem({ event, variant }: { event: JourneyEvent; variant?: 'primary' | 'secondary' }) {
+function JourneyEventItem({ event, variant }: { event: JourneyEvent; variant?: 'primary' | 'spotlight' | 'secondary' }) {
   if (event.type === 'milestone') {
     return <div className="journey-milestone"><strong>{event.title}</strong><span>{event.summary}</span></div>;
   }
@@ -12,23 +12,21 @@ function JourneyEventItem({ event, variant }: { event: JourneyEvent; variant?: '
       <ArrowUpRight aria-hidden="true" className="journey-arrow h-5 w-5" />
       <strong>{event.title}</strong>
       <span className="journey-summary">{event.summary}</span>
+      {event.previewPath && <span className="journey-path">{event.previewPath}</span>}
     </a>
   );
 }
 
 function JourneyMonthEvents({ month }: { month: JourneyMonth }) {
-  const featured = month.events.find((event): event is JourneyExperience => event.type === 'experience' && Boolean(event.featured));
+  const featured = month.events.filter((event): event is JourneyExperience => event.type === 'experience' && Boolean(event.featured));
 
-  if (featured) {
+  if (featured.length > 0) {
     return (
       <div className="journey-events journey-events-featured">
-        <JourneyEventItem event={featured} variant="primary" />
-        <div className="journey-parallel-group">
-          <p className="journey-parallel-label">同時期に取り組む</p>
-          <div className="journey-parallel">
-            {month.events.filter((event) => event !== featured).map((event) => <JourneyEventItem key={event.title} event={event} variant="secondary" />)}
-          </div>
+        <div className={`journey-featured-pair${featured.length === 1 ? ' journey-featured-single' : ''}`}>
+          {featured.map((event) => <JourneyEventItem key={event.id} event={event} variant={event.id === 'salt2' ? 'spotlight' : 'primary'} />)}
         </div>
+        {month.events.filter((event) => event.type !== 'experience' || !event.featured).map((event) => <JourneyEventItem key={event.title} event={event} variant="secondary" />)}
       </div>
     );
   }

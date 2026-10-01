@@ -49,11 +49,12 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: '各Sprintの進め方' })).toBeInTheDocument();
   });
 
-  it('presents the upcoming Mikke internship as the October highlight', () => {
+  it('presents Mikke and SALT2 as October highlights', () => {
     const { unmount } = render(<App />);
     expect(screen.getByRole('link', { name: 'ミッケ株式会社の詳細を見る' })).toHaveAttribute('href', '#/journey/mikke');
+    expect(screen.getByRole('link', { name: 'SALT2 Bootcampの詳細を見る' })).toHaveTextContent('Webアプリ → チーム開発 → AIエージェント');
+    expect(screen.getByRole('link', { name: 'GCI 2026 Winterの詳細を見る' })).toHaveTextContent('東京大学 松尾・岩澤研究室監修');
     expect(screen.getByRole('link', { name: 'ミッケ株式会社のインターン詳細を見る' })).toHaveAttribute('href', '#/journey/mikke');
-    expect(screen.getByText('同時期に取り組む')).toBeInTheDocument();
     unmount();
 
     window.location.hash = '#/journey/mikke';

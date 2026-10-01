@@ -23,6 +23,7 @@ export interface JourneyExperience {
   detail: string;
   points: string[];
   pointsHeading?: string;
+  previewPath?: string;
   program?: JourneyProgram;
   deliverables?: JourneyDeliverable[];
   upcoming?: boolean;
@@ -79,7 +80,7 @@ export const journey: JourneyYear[] = [
       },
       {
         month: '10月',
-        weight: 3.35,
+        weight: 3.8,
         upcoming: true,
         events: [
           {
@@ -98,9 +99,10 @@ export const journey: JourneyYear[] = [
           {
             id: 'salt2',
             type: 'experience',
-            label: 'AI · DEVELOPMENT',
+            label: 'AI駆動開発プログラム',
             title: 'SALT2 Bootcamp',
-            summary: 'AI駆動開発・チーム開発・成果発表。',
+            summary: '実務課題で設計から発表まで。',
+            previewPath: 'Webアプリ → チーム開発 → AIエージェント',
             date: '2026.10–11',
             detail: '実際の業務課題を題材に、個人でのWebアプリ開発、チーム開発、AIエージェント構築へと進む約2か月間のプログラム。各Sprintで学習から設計・実装・レビュー・発表まで取り組み、任意の発展課題ではAI開発環境の自作も扱います。',
             points: ['AI駆動開発', 'チームでの設計・実装', 'レビューと成果発表'],
@@ -136,6 +138,7 @@ export const journey: JourneyYear[] = [
               ],
             },
             upcoming: true,
+            featured: true,
           },
           {
             id: 'gci',
