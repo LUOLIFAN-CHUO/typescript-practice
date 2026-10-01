@@ -8,6 +8,11 @@ export interface JourneyDeliverable {
   links?: { label: string; url: string }[];
 }
 
+export interface JourneyProgram {
+  sprints: { title: string; context: string; description: string }[];
+  phases: { name: string; description: string }[];
+}
+
 export interface JourneyExperience {
   id: 'aws' | 'mikke' | 'salt2' | 'gci';
   type: 'experience';
@@ -18,6 +23,7 @@ export interface JourneyExperience {
   detail: string;
   points: string[];
   pointsHeading?: string;
+  program?: JourneyProgram;
   deliverables?: JourneyDeliverable[];
   upcoming?: boolean;
   featured?: boolean;
@@ -96,8 +102,39 @@ export const journey: JourneyYear[] = [
             title: 'SALT2 Bootcamp',
             summary: 'AI駆動開発・チーム開発・成果発表。',
             date: '2026.10–11',
-            detail: 'AIを活用しながら実際に手を動かして開発を学ぶ約2か月間のプログラム。約3週間のチーム開発と、計3回の発表会が予定されています。',
-            points: ['AI駆動開発', '約3週間のチーム開発', '成果発表'],
+            detail: '実際の業務課題を題材に、個人でのWebアプリ開発、チーム開発、AIエージェント構築へと進む約2か月間のプログラム。各Sprintで学習から設計・実装・レビュー・発表まで取り組み、任意の発展課題ではAI開発環境の自作も扱います。',
+            points: ['AI駆動開発', 'チームでの設計・実装', 'レビューと成果発表'],
+            program: {
+              sprints: [
+                {
+                  title: 'Sprint 1｜個人開発',
+                  context: '不動産 · 入居者ポータル',
+                  description: 'LLMのStructured Outputで曖昧な問い合わせを整理し、入居者の自己解決を支援するポータルを構築。VercelとSupabaseで公開する。',
+                },
+                {
+                  title: 'Sprint 2｜チーム開発',
+                  context: 'コンサルティング · 議事録管理',
+                  description: '会議記録から決定事項・検討事項・タスクを整理するアプリをチームで開発。設計・実装・レビュー・テストを経てAWSへデプロイする。',
+                },
+                {
+                  title: 'Sprint 3｜AIエージェント',
+                  context: '総合商社 · 引合書整理',
+                  description: '形式の異なる引合書類を読み取り、品目一覧へ整理するAIエージェントを構築。担当者が出力を確認できる流れも設計する。',
+                },
+                {
+                  title: 'Sprint 4｜開発環境の自作（任意）',
+                  context: 'Claude Code · 開発を支える仕組み',
+                  description: '自分の開発で感じた課題をもとに、Skills・サブエージェント・Rules・Hooksなどから仕組みを選び、開発環境を自作する。',
+                },
+              ],
+              phases: [
+                { name: 'Learn', description: '題材と必要な基礎知識を学ぶ' },
+                { name: 'Design', description: 'AIと対話しながら設計書を作る' },
+                { name: 'Build', description: '小さな単位で実装・レビューを重ねる' },
+                { name: 'Review', description: 'コードを自分で確認し、理解を深める' },
+                { name: 'Presentation', description: '成果とコードを自分の言葉で伝える' },
+              ],
+            },
             upcoming: true,
           },
           {

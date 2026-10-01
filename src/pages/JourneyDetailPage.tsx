@@ -24,6 +24,34 @@ export function JourneyDetailPage({ item }: JourneyDetailPageProps) {
             ))}
           </ul>
         </div>
+        {item.program && (
+          <div className="mt-10 border-t border-slate-200 pt-7 dark:border-white/15">
+            <h2 className="text-sm font-bold tracking-widest text-blue-700 dark:text-teal-300">カリキュラム（予定）</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">以下はプログラムで扱う内容です。実際に制作したものや担当した範囲は、進行に合わせて追記します。</p>
+            <ol className="mt-6 divide-y divide-slate-200 border-y border-slate-200 dark:divide-white/15 dark:border-white/15">
+              {item.program.sprints.map((sprint, index) => (
+                <li key={sprint.title} className="grid gap-2 py-5 sm:grid-cols-[2.5rem_1fr] sm:gap-4">
+                  <span className="text-lg font-black text-teal-600 dark:text-teal-300" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-950 dark:text-white">{sprint.title}</h3>
+                    <p className="mt-1 text-xs font-semibold tracking-wide text-blue-700 dark:text-teal-300">{sprint.context}</p>
+                    <p className="mt-2 leading-7 text-slate-600 dark:text-slate-300">{sprint.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <h3 className="mt-9 text-lg font-bold text-slate-950 dark:text-white">各Sprintの進め方</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">動くものを作るだけで終わらず、設計・検証・説明まで一巡します。</p>
+            <ol className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+              {item.program.phases.map((phase, index) => (
+                <li key={phase.name} className="flex items-start gap-3 text-sm leading-6">
+                  <span className="shrink-0 font-bold text-teal-600 dark:text-teal-300">{index + 1}.</span>
+                  <span><strong className="text-slate-950 dark:text-white">{phase.name}</strong><span className="block text-slate-600 dark:text-slate-300">{phase.description}</span></span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         {item.deliverables && item.deliverables.length > 0 && (
           <div className="mt-10 border-t border-slate-200 pt-7 dark:border-white/15">
             <h2 className="text-sm font-bold tracking-widest text-blue-700 dark:text-teal-300">成果物</h2>

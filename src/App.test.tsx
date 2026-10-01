@@ -40,7 +40,13 @@ describe('App', () => {
     window.location.hash = '#/journey/salt2';
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: 'SALT2 Bootcamp' })).toBeInTheDocument();
-    expect(screen.getByText('約3週間のチーム開発')).toBeInTheDocument();
+    expect(screen.getByText('チームでの設計・実装')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'カリキュラム（予定）' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Sprint 1｜個人開発' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Sprint 2｜チーム開発' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Sprint 3｜AIエージェント' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Sprint 4｜開発環境の自作（任意）' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '各Sprintの進め方' })).toBeInTheDocument();
   });
 
   it('presents the upcoming Mikke internship as the October highlight', () => {
