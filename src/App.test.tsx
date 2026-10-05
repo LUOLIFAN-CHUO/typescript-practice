@@ -11,6 +11,7 @@ describe('App', () => {
   beforeEach(() => {
     window.location.hash = '';
     window.localStorage.clear();
+    window.scrollTo = vi.fn();
     vi.mocked(getVisitorCount).mockResolvedValue(25);
   });
 
@@ -31,6 +32,15 @@ describe('App', () => {
     expect(link).toHaveAttribute('href', '#/trends');
   });
 
+  it('provides direct mobile entry points to the journey and projects', () => {
+    render(<App />);
+
+    expect(screen.getByRole('link', { name: '経歴を見る' })).toHaveAttribute('href', '#journey');
+    expect(document.getElementById('journey')).toBeInTheDocument();
+    expect(document.querySelector('#about a[href="#projects"]')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'AI に質問' })).toHaveAttribute('aria-expanded', 'false');
+  });
+
   it('shows the journey and opens a dedicated experience page', () => {
     const { unmount } = render(<App />);
     expect(screen.getAllByText('先進理工学部 電気電子情報通信工学科')).toHaveLength(2);
@@ -39,6 +49,7 @@ describe('App', () => {
 
     window.location.hash = '#/journey/salt2';
     render(<App />);
+    expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
     expect(screen.getByRole('heading', { level: 1, name: 'SALT2 Bootcamp' })).toBeInTheDocument();
     expect(screen.getByText('チームでの設計・実装')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'カリキュラム（予定）' })).toBeInTheDocument();

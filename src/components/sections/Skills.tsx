@@ -24,7 +24,7 @@ export function Skills() {
 
       <div className="mt-7 grid gap-5 md:grid-cols-3">
         {activeCategory.items.map((skill, index) => (
-          <article key={skill.title} className="glass-card p-6">
+          <article key={skill.title} className="glass-card p-5 sm:p-6">
             <div className="flex items-start justify-between gap-4">
               <div className="grid h-11 w-11 place-items-center rounded-2xl bg-blue-100 font-black text-blue-700 dark:bg-teal-300/10 dark:text-teal-300">{index === 0 ? <Layers3 className="h-5 w-5" /> : <Code2 className="h-5 w-5" />}</div>
               <span className="tag">{skill.level}</span>

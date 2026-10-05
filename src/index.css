@@ -42,7 +42,7 @@
 
 @layer components {
   .section-shell {
-    @apply mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28;
+    @apply mx-auto w-full max-w-6xl px-5 py-12 sm:px-8 sm:py-20 lg:px-10 lg:py-28;
   }
 
   .glass-card {
@@ -98,6 +98,13 @@
 .cloud-float {
   animation: float 6s ease-in-out infinite;
 }
+
+.chat-widget { right: max(.75rem, env(safe-area-inset-right)); bottom: max(.75rem, env(safe-area-inset-bottom)); }
+
+.about-header { display: grid; grid-template-areas: "identity portrait" "summary portrait"; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.5rem; align-items: center; }
+.about-identity { grid-area: identity; }
+.about-summary { grid-area: summary; }
+.about-portrait { grid-area: portrait; }
 
 .journey-overview { margin-top: 1.3rem; }
 .journey-intro { display: flex; align-items: end; justify-content: space-between; gap: 1.5rem; }
@@ -162,6 +169,10 @@
   .journey-events-featured > .journey-experience-secondary { max-width: calc(100% - 5rem); }
 }
 
+@media (min-width: 640px) {
+  .chat-widget { right: 1.75rem; bottom: 1.75rem; }
+}
+
 @media (max-width: 900px) {
   .journey-intro { align-items: start; flex-direction: column; gap: .7rem; }
   .journey-hint { white-space: normal; }
@@ -178,9 +189,36 @@
 }
 
 @media (max-width: 560px) {
-  .journey-events-pair { grid-template-columns: 1fr; gap: 1rem; }
-  .journey-featured-pair { grid-template-columns: 1fr; }
-  .journey-overview { margin-top: 2.2rem; }
+  .about-header { grid-template-areas: "identity portrait" "summary summary"; grid-template-columns: minmax(0, 1fr) 4rem; column-gap: .75rem; row-gap: .5rem; align-items: center; }
+  .about-identity .eyebrow { gap: .3rem; margin-bottom: .55rem; font-size: .6rem; letter-spacing: .12em; }
+  .about-identity .eyebrow svg { width: .8rem; height: .8rem; }
+  .about-identity > p { margin-bottom: .35rem; font-size: .7rem; }
+  .about-summary > p { margin-top: .25rem; line-height: 1.6; }
+  .journey-overview { margin-top: 1.4rem; scroll-margin-top: 6rem; }
+  .journey-intro h2 { font-size: 1.3rem; }
+  .journey-hint { margin-bottom: .25rem; font-size: .68rem; }
+  .journey-year { margin-top: .8rem; }
+  .journey-track { margin-top: .75rem; padding-left: 0; }
+  .journey-track::before { top: .7rem; bottom: .7rem; left: 3.43rem; }
+  .journey-month { display: grid; grid-template-columns: 2.85rem minmax(0, 1fr); column-gap: 1.15rem; align-items: start; padding-bottom: .75rem; }
+  .journey-date { padding-top: .7rem; font-size: .7rem; }
+  .journey-dot { top: .85rem; left: 3.13rem; width: .62rem; height: .62rem; }
+  .journey-events { margin-top: 0; gap: .4rem; }
+  .journey-events-pair, .journey-featured-pair { grid-template-columns: 1fr; gap: .4rem; }
+  .journey-milestone { padding: .55rem .5rem; }
+  .journey-milestone strong { font-size: .8rem; }
+  .journey-milestone span { margin-top: .1rem; font-size: .68rem; }
+  .journey-experience, .journey-experience-primary, .journey-experience-spotlight, .journey-experience-secondary { min-height: 4.5rem; padding: .55rem 1.6rem .6rem .75rem; border-radius: 0 .65rem .65rem 0; background: rgba(13, 148, 136, .035); }
+  .dark .journey-experience { background: rgba(94, 234, 212, .045); }
+  .journey-experience-spotlight { background: rgba(13, 148, 136, .1); border-left-width: 3px; }
+  .dark .journey-experience-spotlight { background: rgba(94, 234, 212, .1); }
+  .journey-experience strong, .journey-experience-primary strong, .journey-experience-spotlight strong, .journey-experience-secondary strong { margin-top: .2rem; font-size: .9rem; white-space: normal; }
+  .journey-kind, .journey-experience-secondary .journey-kind { order: 0; font-size: .61rem; }
+  .journey-experience-secondary { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+  .journey-summary, .journey-experience-secondary .journey-summary { display: -webkit-box; overflow: hidden; margin-top: .22rem; font-size: .7rem; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  .journey-path { margin-top: .22rem; font-size: .62rem; }
+  .journey-arrow, .journey-experience-secondary .journey-arrow { top: .6rem; right: .45rem; width: 1rem; height: 1rem; }
+  .journey-experience:active { border-left-color: #0d9488; background: rgba(13, 148, 136, .16); transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

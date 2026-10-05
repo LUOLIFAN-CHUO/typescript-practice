@@ -8,7 +8,7 @@ export function Education() {
       <SectionHeading eyebrow="Education & credentials" title="学歴・資格" description="大学での専門分野と、クラウドエンジニアに向けた資格取得計画です。" />
       <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
         {education.map((item) => (
-          <article key={item.school} className="glass-card p-7 sm:p-9">
+          <article key={item.school} className="glass-card p-5 sm:p-9">
             <div className="grid h-14 w-14 place-items-center rounded-2xl bg-purple-100 text-purple-700 dark:bg-purple-400/10 dark:text-purple-300"><GraduationCap /></div>
             <p className="mt-8 text-xs font-bold uppercase tracking-[0.2em] text-purple-600 dark:text-purple-300">University</p>
             <h3 className="mt-2 text-3xl font-black text-slate-950 dark:text-white">{item.school}</h3>
@@ -18,7 +18,7 @@ export function Education() {
           </article>
         ))}
 
-        <div className="glass-card p-7 sm:p-9">
+        <div className="glass-card p-5 sm:p-9">
           <div className="mb-7 flex items-center gap-3">
             <div className="grid h-12 w-12 place-items-center rounded-2xl bg-amber-100 text-amber-700 dark:bg-amber-300/10 dark:text-amber-300"><Award /></div>
             <div><p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-300">Credentials</p><h3 className="text-xl font-black text-slate-950 dark:text-white">資格・認定</h3></div>

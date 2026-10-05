@@ -34,6 +34,10 @@ function App() {
     return () => window.removeEventListener('hashchange', updateRoute);
   }, []);
 
+  useEffect(() => {
+    if (route.startsWith('#/')) window.scrollTo(0, 0);
+  }, [route]);
+
   const showingTrends = route === '#/trends';
   const journeyItem = journeyExperiences.find((item) => route === `#/journey/${item.id}`);
 

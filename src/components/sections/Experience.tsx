@@ -15,12 +15,12 @@ export function Experience() {
       <SectionHeading eyebrow="Experience" title="実務経験" description="これまでの経験と、これから取り組むインターンシップです。" />
       {experience.map((item) => (
         <article key={item.organization} className="glass-card grid overflow-hidden lg:grid-cols-[0.95fr_1.05fr]">
-          <button type="button" className="group relative min-h-72 overflow-hidden text-left" onClick={() => setExpandedImage(item.image)} aria-label="AWS Japan インターンシップ写真を拡大する">
+          <button type="button" className="group relative h-44 overflow-hidden text-left sm:h-64 lg:h-auto lg:min-h-72" onClick={() => setExpandedImage(item.image)} aria-label="AWS Japan インターンシップ写真を拡大する">
             <img src={assetUrl(item.image)} alt="AWS Japan インターンシップ参加者" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105" />
             <span className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
             <span className="absolute bottom-5 right-5 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-slate-900 shadow-lg"><Expand className="h-5 w-5" /></span>
           </button>
-          <div className="p-7 sm:p-10">
+          <div className="p-5 sm:p-10">
             <span className="tag">{item.category}</span>
             <h3 className="mt-6 text-3xl font-black text-slate-950 dark:text-white">{item.organization}</h3>
             <p className="mt-2 text-lg font-bold text-blue-600 dark:text-teal-300">{item.role}</p>

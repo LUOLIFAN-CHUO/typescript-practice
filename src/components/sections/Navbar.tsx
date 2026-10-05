@@ -12,7 +12,7 @@ export function Navbar({ dark, setDark }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl dark:border-white/10 dark:bg-[#07111f]/75">
-      <nav className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8 lg:px-10" aria-label="メインナビゲーション">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-20 sm:px-8 lg:px-10" aria-label="メインナビゲーション">
         <a href="#about" className="group flex items-center gap-3 font-black tracking-tight">
           <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-teal-400 text-sm text-white shadow-lg shadow-blue-500/20">LR</span>
           <span className="hidden sm:block">{site.name}<span className="text-blue-600 dark:text-teal-300">.</span></span>

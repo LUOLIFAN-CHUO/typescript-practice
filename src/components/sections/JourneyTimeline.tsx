@@ -36,7 +36,7 @@ function JourneyMonthEvents({ month }: { month: JourneyMonth }) {
 
 export function JourneyTimeline() {
   return (
-    <div className="journey-overview" aria-label="これまでの歩み">
+    <div id="journey" className="journey-overview" aria-label="これまでの歩み">
       <div className="journey-intro">
         <div>
           <div className="journey-overline">

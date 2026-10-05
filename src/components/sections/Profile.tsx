@@ -7,7 +7,7 @@ export function Profile() {
     <section id="profile" className="section-shell">
       <SectionHeading eyebrow="About me" title="自己PRとキャリア目標" description="課題に向き合う姿勢と、これから伸ばしていきたい技術領域です。" />
       <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-        <article className="glass-card p-7 sm:p-9">
+        <article className="glass-card p-5 sm:p-9">
           <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
             <Sparkles />
           </div>
@@ -18,7 +18,7 @@ export function Profile() {
           </div>
         </article>
 
-        <article className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-700 to-cyan-600 p-7 text-white shadow-2xl shadow-blue-600/20 sm:p-9">
+        <article className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-700 to-cyan-600 p-5 text-white shadow-2xl shadow-blue-600/20 sm:p-9">
           <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full border-[24px] border-white/10" />
           <Compass className="h-12 w-12 text-teal-200" />
           <p className="mt-10 text-xs font-bold uppercase tracking-[0.22em] text-blue-100">Career goal</p>

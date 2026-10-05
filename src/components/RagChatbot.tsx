@@ -79,9 +79,9 @@ export function RagChatbot() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 sm:bottom-7 sm:right-7">
+    <div className="chat-widget fixed z-50">
       {open && (
-        <section className="mb-3 flex h-[min(38rem,calc(100vh-6rem))] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#0c1a2b]" role="dialog" aria-label="履歴書 AI アシスタント">
+        <section className="mb-3 flex h-[min(38rem,calc(100dvh-6rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#0c1a2b]" role="dialog" aria-label="履歴書 AI アシスタント">
           <header className="flex items-center justify-between border-b border-slate-200 bg-slate-950 px-4 py-3 text-white dark:border-white/10">
             <div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-full bg-teal-300 font-black text-slate-950">AI</span><div><strong className="block text-sm">履歴書 AI</strong><span className="text-xs text-white/60">履歴書の情報をもとに回答</span></div></div>
             <button type="button" onClick={() => setOpen(false)} aria-label="AI アシスタントを閉じる" className="rounded-lg p-1 text-white/70 hover:bg-white/10 hover:text-white"><X className="h-5 w-5" /></button>
@@ -102,7 +102,7 @@ export function RagChatbot() {
           <form onSubmit={handleSubmit} className="border-t border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-[#0c1a2b]"><label className="sr-only" htmlFor="rag-question">質問</label><textarea id="rag-question" value={input} onChange={(event) => setInput(event.target.value.slice(0, 240))} disabled={loading} rows={2} placeholder="知りたいことを入力してください…" className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm outline-none focus:border-teal-400 dark:border-white/10 dark:bg-white/5" /><div className="mt-2 flex items-center justify-between"><span className="text-[11px] text-slate-400">{input.length} / 240</span><button type="submit" disabled={!canSend} className="inline-flex items-center gap-1 rounded-xl bg-teal-300 px-3 py-2 text-xs font-bold text-slate-950 disabled:cursor-not-allowed disabled:opacity-40">送信 <Send className="h-3.5 w-3.5" /></button></div></form>
         </section>
       )}
-      <button type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-4 py-3 text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:bg-blue-700 dark:bg-teal-300 dark:text-slate-950"><MessageCircle className="h-5 w-5" />AI に質問 {open ? <ChevronDown className="h-4 w-4" /> : null}</button>
+      <button type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? 'AI アシスタントを閉じる' : 'AI に質問'} aria-expanded={open} className="inline-flex h-12 w-12 items-center justify-center gap-2 rounded-full bg-slate-950 text-sm font-bold text-white shadow-xl transition hover:-translate-y-0.5 hover:bg-blue-700 dark:bg-teal-300 dark:text-slate-950 sm:h-auto sm:w-auto sm:px-4 sm:py-3"><MessageCircle className="h-5 w-5" /><span className="hidden sm:inline">AI に質問</span> {open ? <ChevronDown className="hidden h-4 w-4 sm:block" /> : null}</button>
     </div>
   );
 }

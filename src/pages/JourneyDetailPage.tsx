@@ -8,14 +8,14 @@ interface JourneyDetailPageProps {
 
 export function JourneyDetailPage({ item }: JourneyDetailPageProps) {
   return (
-    <section className="section-shell min-h-[70vh] pt-16 lg:pt-24" aria-labelledby="journey-detail-title">
+    <section className="section-shell min-h-[70vh] pt-8 sm:pt-16 lg:pt-24" aria-labelledby="journey-detail-title">
       <a href="#about" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900 dark:text-teal-300 dark:hover:text-teal-100">
         <ArrowLeft className="h-4 w-4" /> タイムラインへ戻る
       </a>
-      <div className="mt-12 max-w-3xl">
+      <div className="mt-7 max-w-3xl sm:mt-12">
         <p className="eyebrow">{item.date} · {item.label}</p>
-        <h1 id="journey-detail-title" className="mt-2 text-4xl font-black leading-tight tracking-tight text-slate-950 dark:text-white sm:text-5xl">{item.title}</h1>
-        <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">{item.detail}</p>
+        <h1 id="journey-detail-title" className="mt-2 text-3xl font-black leading-tight tracking-tight text-slate-950 dark:text-white sm:text-5xl">{item.title}</h1>
+        <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300 sm:mt-6 sm:text-lg sm:leading-8">{item.detail}</p>
         <div className="mt-10 border-t border-slate-200 pt-7 dark:border-white/15">
           <h2 className="text-sm font-bold tracking-widest text-blue-700 dark:text-teal-300">{item.pointsHeading ?? (item.upcoming ? '取り組む内容' : '取り組んだこと')}</h2>
           <ul className="mt-5 space-y-3">

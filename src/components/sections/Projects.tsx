@@ -14,12 +14,12 @@ export function Projects() {
       {projects.map((project) => (
         <article key={project.title} className="glass-card overflow-hidden">
           <div className="grid lg:grid-cols-[1.08fr_0.92fr]">
-            <button type="button" onClick={() => setExpandedImage(project.image)} className="group relative min-h-80 overflow-hidden bg-slate-950 p-5 text-left" aria-label={`${project.title}の構成図を拡大する`}>
+            <button type="button" onClick={() => setExpandedImage(project.image)} className="group relative h-48 overflow-hidden bg-slate-950 p-3 text-left sm:h-64 sm:p-5 lg:h-auto lg:min-h-80" aria-label={`${project.title}の構成図を拡大する`}>
               <img src={assetUrl(project.image)} alt={`${project.title} AWSアーキテクチャ`} className="h-full w-full rounded-2xl object-contain transition duration-500 group-hover:scale-[1.02]" />
               <span className="absolute bottom-8 right-8 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-slate-900 shadow-lg"><Expand className="h-5 w-5" /></span>
             </button>
 
-            <div className="p-7 sm:p-10">
+            <div className="p-5 sm:p-10">
               <div className="eyebrow"><Workflow className="h-4 w-4" /> {project.eyebrow}</div>
               <h3 className="text-3xl font-black text-slate-950 dark:text-white sm:text-4xl">{project.title}</h3>
               <p className="mt-6 leading-8 text-slate-600 dark:text-slate-300">{project.description}</p>
