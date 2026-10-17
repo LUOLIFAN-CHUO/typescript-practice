@@ -92,7 +92,20 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: '関連する経歴を見る' })).toHaveAttribute('href', '#/journey/salt2');
     expect(screen.queryByRole('link', { name: 'Live site' })).not.toBeInTheDocument();
     expect(within(screen.getByRole('main')).queryByRole('link', { name: 'GitHub' })).not.toBeInTheDocument();
-    expect(screen.getByRole('img', { name: /機能概念図/ })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /AI チャットがエレベーターの閉じ込め/ })).toHaveAttribute('src', '/images/resident-portal-emergency.png');
+    expect(screen.getByRole('img', { name: /管理画面：質問履歴と対応待ち/ })).toHaveAttribute('src', '/images/resident-portal-questions.png');
+    expect(screen.getByRole('img', { name: 'スマートフォンで表示した連絡先一覧' })).toHaveAttribute('src', '/images/resident-portal-mobile.png');
+    expect(screen.getByRole('heading', { name: '通常の質問：根拠付きで回答する' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '緊急・安全関連：回答より、連絡を優先する' })).toBeInTheDocument();
+    const flow = screen.getByRole('region', { name: '質問に応じて、AI の動きを変える。' });
+    const supportingImages = screen.getByRole('region', { name: 'プロジェクトの画像' });
+    expect(flow.compareDocumentPosition(supportingImages) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(screen.getByText(/運用成果を示す数値ではありません/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /AI チャットがエレベーターの閉じ込め.*を拡大する/ }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '画像を閉じる' })).toHaveFocus();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
     act(() => {
       window.history.replaceState(null, '', '#journey');

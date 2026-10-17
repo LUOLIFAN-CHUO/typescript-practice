@@ -5,7 +5,12 @@ import { assetUrl } from '@/lib/utils';
 export function ProjectVisual({ project }: { project: Project }) {
   const resident = project.visual === 'resident';
   if (project.coverImage) {
-    return <img src={assetUrl(project.coverImage.src)} alt={project.coverImage.alt} className="h-72 w-full object-cover" loading="lazy" />;
+    return (
+      <div className="project-screenshot relative bg-slate-100 px-3 pb-3 pt-10 dark:bg-slate-800">
+        <span className="absolute left-4 top-3 text-[10px] font-semibold tracking-widest text-slate-500 dark:text-slate-300">SCREENSHOT / 実際の画面</span>
+        <img src={assetUrl(project.coverImage.src)} alt={project.coverImage.alt} className="h-60 w-full rounded-lg object-contain" loading="lazy" />
+      </div>
+    );
   }
   if (!project.visual) {
     return <div className="project-visual project-visual-cloud"><div className="flex flex-col items-center gap-4"><FileText size={40} aria-hidden="true" /><span className="text-lg font-bold">{project.title}</span></div></div>;

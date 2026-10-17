@@ -129,6 +129,7 @@
 .project-detail-visual .project-visual { min-height: 23rem; padding: 3.5rem 2rem 2.5rem; }
 .project-detail-visual .portal-concept { max-width: 490px; transform: none; }
 .project-detail-visual .cloud-concept { max-width: 440px; }
+.project-detail-visual .project-screenshot img { height: auto; max-height: 34rem; }
 @media (max-width: 640px) {
   .project-detail-visual .project-visual { padding-inline: 1rem; min-height: 19rem; }
   .portal-concept-body { padding: 1rem; gap: .75rem; }
