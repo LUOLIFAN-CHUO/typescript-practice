@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import type { JourneyExperience } from '@/data/journey';
 import { assetUrl } from '@/lib/utils';
+import { projects, projectHref } from '@/data/projects';
 
 interface JourneyDetailPageProps {
   item: JourneyExperience;
@@ -9,7 +10,7 @@ interface JourneyDetailPageProps {
 export function JourneyDetailPage({ item }: JourneyDetailPageProps) {
   return (
     <section className="section-shell min-h-[70vh] pt-8 sm:pt-16 lg:pt-24" aria-labelledby="journey-detail-title">
-      <a href="#about" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900 dark:text-teal-300 dark:hover:text-teal-100">
+      <a href="#journey" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900 dark:text-teal-300 dark:hover:text-teal-100">
         <ArrowLeft className="h-4 w-4" /> タイムラインへ戻る
       </a>
       <div className="mt-7 max-w-3xl sm:mt-12">
@@ -78,6 +79,11 @@ export function JourneyDetailPage({ item }: JourneyDetailPageProps) {
             写真と経験の紹介を見る <ArrowUpRight className="h-4 w-4" />
           </a>
         )}
+        {projects.filter((project) => project.journeyId === item.id).map((project) => (
+          <a key={project.id} href={projectHref(project.id)} className="glass-card mt-9 block p-6 transition hover:border-teal-400 dark:hover:border-teal-300/50">
+            <span className="eyebrow">Related project</span><span className="flex items-center justify-between gap-3 text-xl font-bold text-slate-950 dark:text-white">{project.title}<ArrowUpRight className="h-5 w-5 shrink-0" aria-hidden="true" /></span><span className="mt-3 block text-sm leading-7 text-slate-600 dark:text-slate-300">{project.description}</span>
+          </a>
+        ))}
       </div>
     </section>
   );

@@ -3,11 +3,10 @@ import { about } from '@/data/about';
 import { site } from '@/data/site';
 import { assetUrl } from '@/lib/utils';
 import { VisitorCounter } from '@/components/VisitorCounter';
-import { JourneyTimeline } from '@/components/sections/JourneyTimeline';
 
 export function About() {
   return (
-    <section id="about" className="section-shell pt-5 sm:pt-8 lg:pt-8">
+    <section id="about" className="section-shell !pb-0 pt-5 sm:pt-8 lg:pt-8">
       <div className="about-header border-b border-slate-200/80 pb-5 dark:border-white/10 sm:pb-6">
         <div className="about-identity min-w-0">
           <div className="eyebrow"><Cloud className="h-4 w-4" /> Build · Learn · Improve</div>
@@ -31,7 +30,6 @@ export function About() {
         </div>
       </div>
 
-      <JourneyTimeline />
     </section>
   );
 }

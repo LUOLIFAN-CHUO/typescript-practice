@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { getVisitorCount } from '@/services/visitorCounter';
@@ -72,5 +72,60 @@ describe('App', () => {
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: 'ミッケ株式会社' })).toBeInTheDocument();
     expect(screen.getByText('募集要項に記載された業務領域')).toBeInTheDocument();
+  });
+
+  it('keeps the original journey after the selected projects', () => {
+    render(<App />);
+    const selected = document.getElementById('projects')!;
+    const journey = document.getElementById('journey')!;
+    expect(selected.compareDocumentPosition(journey) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(screen.getByRole('link', { name: 'AWS Japan インターンシップの詳細を見る' })).toHaveAttribute('href', '#/journey/aws');
+    expect(screen.getByRole('heading', { name: '学びを、実践へ。' })).toBeInTheDocument();
+  });
+
+  it('supports direct project links and returning to the existing timeline', () => {
+    window.history.replaceState(null, '', '#/projects/resident-portal');
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1, name: 'Resident Portal' })).toBeInTheDocument();
+    expect(document.title).toContain('Resident Portal');
+    expect(document.getElementById('main-content')).toHaveFocus();
+    expect(screen.getByRole('link', { name: '関連する経歴を見る' })).toHaveAttribute('href', '#/journey/salt2');
+    expect(screen.queryByRole('link', { name: 'Live site' })).not.toBeInTheDocument();
+    expect(within(screen.getByRole('main')).queryByRole('link', { name: 'GitHub' })).not.toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /機能概念図/ })).toBeInTheDocument();
+
+    act(() => {
+      window.history.replaceState(null, '', '#journey');
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    });
+    expect(screen.getByRole('heading', { name: '学びを、実践へ。' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: /ラ・リキハン/ })).toBeInTheDocument();
+  });
+
+  it('shows the project archive through hash navigation', () => {
+    render(<App />);
+    act(() => {
+      window.history.replaceState(null, '', '#/projects');
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    });
+    expect(screen.getByRole('heading', { level: 1, name: 'プロジェクト' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: '学びを、実践へ。' })).not.toBeInTheDocument();
+  });
+
+  it('offers the public cloud links and expandable architecture', () => {
+    window.history.replaceState(null, '', '#/projects/cloud-resume');
+    render(<App />);
+    expect(screen.getByRole('link', { name: 'Live site' })).toHaveAttribute('href', 'https://dyp8879eswsdu.cloudfront.net/');
+    fireEvent.click(screen.getByRole('button', { name: /システム構成図を拡大する/ }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('shows a useful fallback for an unknown project link', () => {
+    window.history.replaceState(null, '', '#/projects/missing');
+    render(<App />);
+    expect(screen.getByRole('heading', { name: 'ページが見つかりません' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'プロジェクト一覧へ戻る' })).toHaveAttribute('href', '#/projects');
   });
 });
