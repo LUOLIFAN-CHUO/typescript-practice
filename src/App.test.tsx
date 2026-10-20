@@ -87,6 +87,8 @@ describe('App', () => {
     window.history.replaceState(null, '', '#/projects/resident-portal');
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: 'Resident Portal' })).toBeInTheDocument();
+    expect(screen.getByTitle('Resident Portal のシステム構成図')).toHaveAttribute('src', '/architecture/resident-portal.html?embed=1');
+    expect(screen.getByRole('link', { name: /構成図を別タブで開く/ })).toHaveAttribute('href', '/architecture/resident-portal.html');
     expect(document.title).toContain('Resident Portal');
     expect(document.getElementById('main-content')).toHaveFocus();
     expect(screen.getByRole('link', { name: '関連する経歴を見る' })).toHaveAttribute('href', '#/journey/salt2');
