@@ -73,9 +73,9 @@ export const projects: Project[] = [
     category: 'ai',
     featured: true,
     coverImage: {
-      src: '/images/ai-news-daily-web.png',
-      alt: 'AI News Daily の HTML 版：出典付きの日本語ニュースと企業評価額の比較グラフ',
-      caption: 'Claude が日次で生成する HTML 版の実画面。2026年10月19日号では、AI 業界の動向を出典リンクやグラフとともに掲載しています。クリックで拡大できます。',
+      src: '/images/ai-news-daily-web-2026-11-08.png',
+      alt: 'AI News Daily の Web 版。セキュリティニュースの要約と、認証情報の流出経路・件数を示した図。',
+      caption: '2026年11月8日号の Web 版。セキュリティニュースの要約を、出典と図解とともに掲載しています。クリックで拡大できます。',
     },
     gallery: [
       {
