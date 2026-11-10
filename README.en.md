@@ -6,6 +6,17 @@ A Japanese cloud resume built with React, TypeScript, Tailwind CSS, and Vite and
 
 [Live resume](https://luolifan-chuo.github.io/typescript-practice/)
 
+## Project repositories
+
+This repository is the main entry point for Cloud Portfolio. The project evolved from an AWS-hosted HTML resume to a React resume on GitHub Pages.
+
+| Repository | Role / status |
+| --- | --- |
+| [typescript-practice](https://github.com/LUOLIFAN-CHUO/typescript-practice) | Current React resume and GitHub Pages deployment |
+| [cloud-resume-frontend](https://github.com/LUOLIFAN-CHUO/cloud-resume-frontend) | Archived legacy HTML frontend |
+| [cloud-resume-backend](https://github.com/LUOLIFAN-CHUO/cloud-resume-backend) | Archived visitor-counter backend |
+| [rag-practice](https://github.com/LUOLIFAN-CHUO/rag-practice) | Standalone Bedrock RAG component; live demo paused |
+
 ## System architecture
 
 [![AI-Powered Cloud Portfolio architecture](docs/architecture/AI-Powered-Cloud-Portfolio.png)](docs/architecture/AI-Powered-Cloud-Portfolio.html)

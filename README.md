@@ -6,6 +6,17 @@ React、TypeScript、Tailwind CSS、Vite で構築した日本語のクラウド
 
 [公開サイト](https://luolifan-chuo.github.io/typescript-practice/)
 
+## プロジェクトのリポジトリ
+
+このリポジトリは Cloud Portfolio のメイン入口です。AWS 上の HTML 履歴書から、GitHub Pages で公開する React 履歴書へ移行しました。
+
+| Repository | Role / status |
+| --- | --- |
+| [typescript-practice](https://github.com/LUOLIFAN-CHUO/typescript-practice) | 現在の React 履歴書と GitHub Pages 公開 |
+| [cloud-resume-frontend](https://github.com/LUOLIFAN-CHUO/cloud-resume-frontend) | 旧 HTML フロントエンド・アーカイブ |
+| [cloud-resume-backend](https://github.com/LUOLIFAN-CHUO/cloud-resume-backend) | 旧訪問者カウンター・アーカイブ |
+| [rag-practice](https://github.com/LUOLIFAN-CHUO/rag-practice) | 独立した Bedrock RAG コンポーネント・デモ休止中 |
+
 ## システム全体像
 
 [![AI-Powered Cloud Portfolio アーキテクチャ](docs/architecture/AI-Powered-Cloud-Portfolio.png)](docs/architecture/AI-Powered-Cloud-Portfolio.html)
