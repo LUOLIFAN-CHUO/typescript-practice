@@ -2,43 +2,31 @@
 
 [日本語](./README.md) | English
 
-A Japanese cloud resume built with React, TypeScript, Tailwind CSS, and Vite. It is delivered through Amazon S3 and CloudFront and integrates both a visitor counter and an Amazon Bedrock-powered RAG assistant.
+A Japanese cloud resume built with React, TypeScript, Tailwind CSS, and Vite and hosted on GitHub Pages. Its Cloud Resume Challenge case study documents the earlier AWS deployment.
 
-**Demo:** https://dyp8879eswsdu.cloudfront.net/
+[Live resume](https://luolifan-chuo.github.io/typescript-practice/)
 
 ## System architecture
 
 [![AI-Powered Cloud Portfolio architecture](docs/architecture/AI-Powered-Cloud-Portfolio.png)](docs/architecture/AI-Powered-Cloud-Portfolio.html)
 
-Click the image to open the interactive Archify diagram. This repository owns the `Portfolio UI` shown in the architecture.
+The interactive diagram shows the original AWS deployment. This repository contains the `Portfolio UI` shown in the diagram.
 
 ## Frontend responsibilities
 
 - Component-based resume UI built with React 18 and TypeScript
 - Vite development server and production build
 - Responsive layouts with Tailwind CSS
-- Type-safe visitor counter using `GET /count`
-- Japanese RAG chat UI using `POST /ask`
+- Optional Japanese RAG chat UI and IT Trends feed
 - Answer, citation, loading, timeout, and API error states
 - Automated checks with ESLint, TypeScript, and Vitest
-
-## Runtime flow
-
-```text
-Browser → CloudFront → Amazon S3 → React / TypeScript UI
-                                  ├─ GET /count → API Gateway → Lambda → DynamoDB
-                                  └─ POST /ask  → API Gateway → Lambda → Bedrock Knowledge Base
-```
 
 ## Project structure
 
 ```text
 src/App.tsx                     Overall page composition
 src/components/RagChatbot.tsx  Resume RAG chat UI
-src/components/VisitorCounter.tsx
-                                Visitor-count display
 src/services/ragApi.ts          Type-safe POST /ask client
-src/services/visitorCounter.ts  Type-safe GET /count client
 src/components/sections/        Profile, Skills, Projects, and other sections
 src/data/                       Portfolio content
 ```
@@ -49,6 +37,12 @@ src/data/                       Portfolio content
 npm install
 npm run dev
 ```
+
+Set `VITE_RAG_API_URL` or `VITE_TRENDS_DATA_URL` in `.env.local` to connect the corresponding feature. For deployed builds, set the GitHub Actions repository variables with the same names. The default build hides the chat and links from IT Trends to its case study.
+
+## Deploy to GitHub Pages
+
+Choose **GitHub Actions** in the repository's **Settings → Pages**. A push to `main` or a manual workflow run tests the app, builds it, and publishes `dist`.
 
 ## Quality checks
 
@@ -66,9 +60,7 @@ npm run build
 - Vite 5
 - Tailwind CSS
 - Vitest / Testing Library
-- Amazon S3 / CloudFront
-- Amazon API Gateway
-- GitHub Actions
+- GitHub Pages / GitHub Actions
 
 ## Security principles
 
@@ -80,7 +72,7 @@ npm run build
 ## Related repositories
 
 - [rag-practice](https://github.com/LUOLIFAN-CHUO/rag-practice) — RAG API, knowledge content, and Amazon Bedrock infrastructure
-- [cloud-resume-backend](https://github.com/LUOLIFAN-CHUO/cloud-resume-backend) — visitor-counter API
+- [cloud-resume-backend](https://github.com/LUOLIFAN-CHUO/cloud-resume-backend) — visitor-counter API from the original AWS deployment
 
 ## Architecture artifacts
 

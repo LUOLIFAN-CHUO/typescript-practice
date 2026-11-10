@@ -1,18 +1,12 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import App from './App';
-import { getVisitorCount } from '@/services/visitorCounter';
-
-vi.mock('@/services/visitorCounter', () => ({
-  getVisitorCount: vi.fn(),
-}));
 
 describe('App', () => {
   beforeEach(() => {
     window.location.hash = '';
     window.localStorage.clear();
     window.scrollTo = vi.fn();
-    vi.mocked(getVisitorCount).mockResolvedValue(25);
   });
 
   it('renders the migrated resume content and navigation', () => {
@@ -25,11 +19,17 @@ describe('App', () => {
     expect(screen.getByRole('navigation', { name: 'メインナビゲーション' })).toBeInTheDocument();
   });
 
-  it('opens the trends page from the resume entry point', () => {
+  it('links to the trends case study when the feed is paused', () => {
     render(<App />);
 
     const link = screen.getByRole('link', { name: /ITトレンド/ });
     expect(link).toHaveAttribute('href', '#/trends');
+    act(() => {
+      window.history.replaceState(null, '', '#/trends');
+      window.dispatchEvent(new HashChangeEvent('hashchange'));
+    });
+    expect(screen.getByText(/ニュースの自動更新は休止中/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'プロジェクトを見る' })).toHaveAttribute('href', '#/projects/ai-news-daily');
   });
 
   it('provides direct mobile entry points to the journey and projects', () => {
@@ -38,7 +38,7 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: '経歴を見る' })).toHaveAttribute('href', '#journey');
     expect(document.getElementById('journey')).toBeInTheDocument();
     expect(document.querySelector('#about a[href="#projects"]')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'AI に質問' })).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByRole('button', { name: 'AI に質問' })).not.toBeInTheDocument();
   });
 
   it('shows the journey and opens a dedicated experience page', () => {
@@ -130,7 +130,7 @@ describe('App', () => {
   it('offers the public cloud links and expandable architecture', () => {
     window.history.replaceState(null, '', '#/projects/cloud-resume');
     render(<App />);
-    expect(screen.getByRole('link', { name: 'Live site' })).toHaveAttribute('href', 'https://dyp8879eswsdu.cloudfront.net/');
+    expect(screen.getByRole('link', { name: 'Live site' })).toHaveAttribute('href', import.meta.env.BASE_URL);
     fireEvent.click(screen.getByRole('button', { name: /システム構成図を拡大する/ }));
     expect(screen.getByRole('dialog')).toBeInTheDocument();
     fireEvent.keyDown(window, { key: 'Escape' });

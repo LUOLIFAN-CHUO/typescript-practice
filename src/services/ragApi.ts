@@ -1,5 +1,4 @@
-const DEFAULT_RAG_API_URL =
-  'https://db895lxek2.execute-api.ap-northeast-1.amazonaws.com/ask';
+export const RAG_API_URL = import.meta.env.VITE_RAG_API_URL?.trim();
 
 export interface RagSource {
   title: string;
@@ -26,8 +25,8 @@ function isRagAnswer(value: unknown): value is RagAnswer {
 }
 
 export async function askRag(question: string, signal?: AbortSignal): Promise<RagAnswer> {
-  const apiUrl = import.meta.env.VITE_RAG_API_URL || DEFAULT_RAG_API_URL;
-  const response = await fetch(apiUrl, {
+  if (!RAG_API_URL) throw new Error('履歴書 AI は現在公開を休止しています。');
+  const response = await fetch(RAG_API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ question }),

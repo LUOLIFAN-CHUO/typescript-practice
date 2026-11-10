@@ -1,7 +1,6 @@
 import type { TrendFeed, TrendItem, TrendSource, TrendSummary } from '@/types/trends';
 
-const DEFAULT_TRENDS_DATA_URL = 'https://portfolio-it-trends-prod-901099688492.s3.ap-northeast-1.amazonaws.com/news.json';
-const TRENDS_DATA_URL = import.meta.env.VITE_TRENDS_DATA_URL?.trim() || DEFAULT_TRENDS_DATA_URL;
+export const TRENDS_DATA_URL = import.meta.env.VITE_TRENDS_DATA_URL?.trim();
 const SOURCES = new Set<TrendSource>(['hacker-news', 'zenn', 'qiita']);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -59,6 +58,7 @@ export function parseTrendFeed(value: unknown): TrendFeed {
 }
 
 export async function loadTrendFeed(endpoint = TRENDS_DATA_URL): Promise<TrendFeed> {
+  if (!endpoint) throw new Error('No trends feed is configured');
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 8_000);
   try {
