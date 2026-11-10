@@ -71,7 +71,7 @@ describe('App', () => {
     window.location.hash = '#/journey/mikke';
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: 'ミッケ株式会社' })).toBeInTheDocument();
-    expect(screen.getByText('募集要項に記載された業務領域')).toBeInTheDocument();
+    expect(screen.getByText('実務で担当したこと')).toBeInTheDocument();
   });
 
   it('keeps the original journey after the selected projects', () => {

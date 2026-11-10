@@ -86,13 +86,14 @@ export const projects: Project[] = [
     ],
     description: '自社内での情報共有に使う AI ニュース配信システム。ニュースを自動収集して毎日 Slack に配信し、GCP 上で Claude による日次の HTML ニュースページも生成しています。',
     stack: ['GCP', 'Claude', 'Slack', 'Cloud Run Jobs', 'Cloud Scheduler', 'Cloud Storage', 'Cloud Tasks'],
-    role: '自社内向け開発',
+    role: 'ミッケ株式会社 インターン · Web版の要件定義から本番反映まで担当',
+    journeyId: 'mikke',
     accessNote: '自社内で利用するシステムのため、アプリ・ソースコードは非公開です。',
     architecture: {
       src: '/architecture/ai-news-daily.html',
       description: 'GCP 上の日次ニュース配信・HTML 生成と、Cloud Tasks を経由する Slack スレッド問答の二つの流れを示しています。',
     },
-    overview: '日々更新される AI ニュースを、情報収集から読むところまで一つの流れにまとめるために開発しました。Cloud Scheduler が毎日 07:40（JST）に Cloud Run Job を起動し、Collector・Analyst・Writer が記事の収集、分析・選定、投稿の生成を順に担当します。ニュースは Slack に配信し、HTML 生成を有効にした場合は Claude でページを生成・検証して Cloud Storage に保存。日付別の Web 版でも読めるほか、Slack スレッドからニュースについて質問できます。',
+    overview: '既存の社内ニュースBotに、Slack投稿から生成AIでWeb版を作成し、自動で検証・公開する機能を追加しました。Web版の要件定義・設計・実装・テスト・本番反映を一貫して担当しました。システム全体では、Cloud Scheduler が毎日 07:40（JST）に Cloud Run Job を起動し、Collector・Analyst・Writer が記事の収集、分析・選定、投稿の生成を順に担当します。ニュースは Slack に配信し、HTML 生成を有効にした場合は Claude でページを生成・検証して Cloud Storage に保存。日付別の Web 版でも読めるほか、Slack スレッドからニュースについて質問できます。',
     features: [
       { title: '収集・分析・執筆をつなぐ日次バッチ', description: 'WebSearch / WebFetch でニュースを並列収集し、重複を除去。Collector から Analyst、Writer へ処理をつなぎ、選定した記事を Slack Block Kit の投稿として毎日配信します。' },
       { title: 'Claude による HTML ページの生成', description: 'HTML 生成を有効にすると、Writer の Block Kit をもとに Claude がページを生成・検証します。生成した HTML は Cloud Storage に保存し、HTML Viewer が日付別に配信します。' },
