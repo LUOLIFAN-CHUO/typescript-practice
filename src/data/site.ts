@@ -11,7 +11,7 @@ export const navigation = [
   { label: 'プロジェクト', href: '#/projects' },
   { label: '経歴', href: '#journey' },
   { label: '自己PR', href: '#profile' },
-  { label: '学歴・資格', href: '#education' },
+  { label: '学歴・資格・受賞', href: '#education' },
   { label: 'スキル', href: '#skills' },
   { label: '連絡先', href: '#contact' },
 ];
