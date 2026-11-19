@@ -83,9 +83,10 @@ export function RagChatbot() {
       {open && (
         <section className="mb-3 flex h-[min(38rem,calc(100dvh-6rem))] w-[min(24rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#0c1a2b]" role="dialog" aria-label="履歴書 AI アシスタント">
           <header className="flex items-center justify-between border-b border-slate-200 bg-slate-950 px-4 py-3 text-white dark:border-white/10">
-            <div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-full bg-teal-300 font-black text-slate-950">AI</span><div><strong className="block text-sm">履歴書 AI</strong><span className="text-xs text-white/60">履歴書の情報をもとに回答</span></div></div>
+            <div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-full bg-teal-300 font-black text-slate-950">AI</span><div><strong className="block text-sm">履歴書 AI</strong><span className="text-xs text-white/60">機能デモ</span></div></div>
             <button type="button" onClick={() => setOpen(false)} aria-label="AI アシスタントを閉じる" className="rounded-lg p-1 text-white/70 hover:bg-white/10 hover:text-white"><X className="h-5 w-5" /></button>
           </header>
+          <p className="shrink-0 border-b border-slate-200 bg-amber-50 px-4 py-3 text-xs leading-6 text-amber-900 dark:border-white/10 dark:bg-amber-300/10 dark:text-amber-100">参照データは最新の経歴・プロジェクト情報に未対応です。機能デモとしてご利用ください。最新情報は本ページの記載をご確認ください。</p>
           <div className="flex-1 space-y-3 overflow-y-auto bg-slate-50 p-4 dark:bg-[#081321]" aria-live="polite">
             {messages.map((message, index) => (
               <div key={`${message.role}-${index}`} className={`flex gap-2 ${message.role === 'user' ? 'justify-end' : ''}`}>

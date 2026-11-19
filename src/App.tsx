@@ -9,6 +9,7 @@ import { Profile } from './components/sections/Profile';
 import { Projects } from './components/sections/Projects';
 import { Skills } from './components/sections/Skills';
 import { RagChatbot } from './components/RagChatbot';
+import { RAG_API_URL } from './services/ragApi';
 import { journeyExperiences } from './data/journey';
 import { JourneyDetailPage } from './pages/JourneyDetailPage';
 import { TrendsPage } from './pages/TrendsPage';
@@ -89,7 +90,7 @@ function App() {
       </main>
 
       <GoToTopButton />
-      <RagChatbot />
+      {RAG_API_URL && <RagChatbot />}
     </div>
   );
 }

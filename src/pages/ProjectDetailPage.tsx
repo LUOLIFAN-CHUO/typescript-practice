@@ -14,6 +14,7 @@ export function ProjectDetailPage({ project }: { project: Project }) {
       <header className="mb-9 mt-9 max-w-3xl"><p className="eyebrow">{project.eyebrow}</p><h1 id="project-detail-title" className="text-3xl font-black leading-tight tracking-tight text-slate-950 dark:text-white sm:text-5xl">{project.title}</h1><p className="mt-6 leading-8 text-slate-600 dark:text-slate-300">{project.description}</p><p className="mt-5 text-sm text-slate-500 dark:text-slate-400">{project.role}</p><div className="mt-5 flex flex-wrap gap-2">{project.stack.map((tech) => <span className="tag" key={tech}>{tech}</span>)}</div>
         {(project.liveLink || project.repositoryLink || project.articleLink) && <div className="mt-7 flex flex-wrap gap-5">{project.liveLink && <a className="project-back" href={project.liveLink} target="_blank" rel="noreferrer"><ExternalLink size={16} aria-hidden="true" />Live site</a>}{project.repositoryLink && <a className="project-back" href={project.repositoryLink} target="_blank" rel="noreferrer"><Github size={16} aria-hidden="true" />GitHub</a>}{project.articleLink && <a className="project-back" href={project.articleLink} target="_blank" rel="noreferrer"><BookOpen size={16} aria-hidden="true" />Qiita</a>}</div>}
       </header>
+      {project.accessNote && <p className="mb-8 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">{project.accessNote}</p>}
       <figure>
         <div className="project-detail-visual overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10">
           {project.coverImage ? (
@@ -26,6 +27,18 @@ export function ProjectDetailPage({ project }: { project: Project }) {
         <aside className="hidden lg:block"><div className="sticky top-28 space-y-4 text-xs text-slate-500 dark:text-slate-400"><p>01 / 概要</p><p>02 / 主な機能</p><p>03 / 設計の工夫</p></div></aside>
         <div className="min-w-0 space-y-12">
           <section><p className="eyebrow">01 / Overview</p><h2 className="project-detail-heading">どんな課題に取り組んだか。</h2><p className="mt-5 leading-8 text-slate-600 dark:text-slate-300">{project.overview}</p></section>
+          {project.architecture && (
+            <section aria-labelledby="architecture-title">
+              <p className="eyebrow">Architecture</p>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <h2 id="architecture-title" className="project-detail-heading">システム構成図</h2>
+                <a href={assetUrl(project.architecture.src)} target="_blank" rel="noreferrer" className="project-back">構成図を別タブで開く<ExternalLink size={16} aria-hidden="true" /></a>
+              </div>
+              <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{project.architecture.description}</p>
+              <iframe src={`${assetUrl(project.architecture.src)}?embed=1`} title={`${project.title} のシステム構成図`} loading="lazy" sandbox="allow-scripts allow-downloads" className="mt-6 h-[28rem] w-full rounded-2xl border border-slate-200 bg-slate-950 sm:h-[34rem] dark:border-white/10" />
+              <p className="mt-3 text-xs leading-6 text-slate-500 dark:text-slate-400">拡大・縮小やノードの選択ができます。スマートフォンでは別タブで開くと、より大きく表示できます。</p>
+            </section>
+          )}
           {project.interactionFlow && (
             <section aria-labelledby="interaction-flow-title">
               <p className="eyebrow">AI chat & urgency assessment</p>

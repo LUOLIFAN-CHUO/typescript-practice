@@ -2,7 +2,6 @@ import { ArrowDown, ArrowUpRight, Cloud, Mail, Newspaper } from 'lucide-react';
 import { about } from '@/data/about';
 import { site } from '@/data/site';
 import { assetUrl } from '@/lib/utils';
-import { VisitorCounter } from '@/components/VisitorCounter';
 
 export function About() {
   return (
@@ -26,7 +25,6 @@ export function About() {
 
         <div className="about-portrait shrink-0">
           <img src={assetUrl(about.heroImage)} alt="ラ・リキハンのプロフィール写真" className="h-16 w-16 rounded-2xl object-cover object-center shadow-lg sm:h-28 sm:w-28" />
-          <div className="mt-2 hidden sm:block"><VisitorCounter /></div>
         </div>
       </div>
 

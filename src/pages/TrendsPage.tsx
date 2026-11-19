@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, Loader2, Newspaper, RotateCcw } from 'lucide-react';
 import { TrendCard } from '@/components/trends/TrendCard';
-import { loadTrendFeed } from '@/services/trendsApi';
+import { projectHref } from '@/data/projects';
+import { loadTrendFeed, TRENDS_DATA_URL } from '@/services/trendsApi';
 import type { TrendFeed, TrendLanguage, TrendSource } from '@/types/trends';
 
 type FeedLoader = () => Promise<TrendFeed>;
@@ -14,6 +15,7 @@ const copy = {
   ja: {
     back: '履歴書に戻る', eyebrow: '注目のテクノロジーニュース', title: '最近のIT業界トレンド',
     description: 'Hacker News、Zenn、Qiita から注目した記事を集め、短い要約で紹介します。',
+    paused: 'ニュースの自動更新は休止中です。仕組みと公開時の画面はプロジェクト紹介でご覧いただけます。', project: 'プロジェクトを見る',
     updated: '最終更新', source: '情報源', category: 'カテゴリー', all: 'すべて',
     loading: 'トレンドを読み込んでいます…', empty: '条件に一致するトレンドはありません。',
     error: 'トレンドを読み込めませんでした。時間をおいて再度お試しください。', retry: '再読み込み', readOriginal: '原文を読む',
@@ -21,12 +23,14 @@ const copy = {
   zh: {
     back: '返回简历', eyebrow: '精选技术资讯', title: '近期 IT 行业趋势',
     description: '汇总 Hacker News、Zenn 和 Qiita 的关注文章，并提供简短摘要。',
+    paused: '新闻自动更新已暂停。可在项目介绍中查看工作流程和上线时的截图。', project: '查看项目',
     updated: '最后更新', source: '来源', category: '分类', all: '全部', loading: '正在加载趋势资讯…',
     empty: '没有符合当前条件的趋势资讯。', error: '无法加载趋势资讯，请稍后重试。', retry: '重新加载', readOriginal: '阅读原文',
   },
   en: {
     back: 'Back to resume', eyebrow: 'Curated technology news', title: 'Recent IT Industry Trends',
     description: 'Selected stories from Hacker News, Zenn, and Qiita with concise summaries.',
+    paused: 'Automatic updates are paused. The project page shows the workflow and screenshots.', project: 'View the project',
     updated: 'Last updated', source: 'Source', category: 'Category', all: 'All', loading: 'Loading trends…',
     empty: 'No trends match the selected filters.', error: 'Could not load trends. Please try again later.', retry: 'Reload', readOriginal: 'Read original',
   },
@@ -38,9 +42,9 @@ const sourceLabels: Record<TrendSource, string> = {
   qiita: 'Qiita',
 };
 
-export function TrendsPage({ loadFeed = loadTrendFeed }: TrendsPageProps) {
+export function TrendsPage({ loadFeed = TRENDS_DATA_URL ? loadTrendFeed : undefined }: TrendsPageProps) {
   const [feed, setFeed] = useState<TrendFeed | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(Boolean(loadFeed));
   const [error, setError] = useState(false);
   const [language, setLanguage] = useState<TrendLanguage>('ja');
   const [source, setSource] = useState<TrendSource | 'all'>('all');
@@ -48,6 +52,7 @@ export function TrendsPage({ loadFeed = loadTrendFeed }: TrendsPageProps) {
   const text = copy[language];
 
   const fetchFeed = useCallback(async () => {
+    if (!loadFeed) return;
     setLoading(true);
     setError(false);
     try {
@@ -108,7 +113,9 @@ export function TrendsPage({ loadFeed = loadTrendFeed }: TrendsPageProps) {
         </div>
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-4 rounded-2xl border border-slate-200/80 bg-white/60 p-4 dark:border-white/10 dark:bg-white/[0.04]">
+      {!loadFeed && <div className="mt-8 glass-card p-6"><p className="text-sm leading-7">{text.paused}</p><a className="project-back mt-4" href={projectHref('ai-news-daily')}>{text.project}</a></div>}
+
+      {loadFeed && <div className="mt-8 flex flex-wrap gap-4 rounded-2xl border border-slate-200/80 bg-white/60 p-4 dark:border-white/10 dark:bg-white/[0.04]">
         <label className="grid gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400">
           {text.source}
           <select value={source} onChange={(event) => setSource(event.target.value as TrendSource | 'all')} className="min-w-40 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 dark:border-white/10 dark:bg-[#0c1a2b] dark:text-slate-100">
@@ -123,11 +130,11 @@ export function TrendsPage({ loadFeed = loadTrendFeed }: TrendsPageProps) {
             {categories.map((value) => <option key={value} value={value}>{value}</option>)}
           </select>
         </label>
-      </div>
+      </div>}
 
       {loading && <div className="mt-10 flex items-center justify-center gap-3 rounded-3xl border border-dashed border-slate-300 py-20 text-slate-500 dark:border-white/15 dark:text-slate-400"><Loader2 className="h-5 w-5 animate-spin" />{text.loading}</div>}
       {!loading && error && <div className="mt-10 rounded-3xl border border-rose-200 bg-rose-50/70 px-6 py-16 text-center text-rose-700 dark:border-rose-300/20 dark:bg-rose-300/5 dark:text-rose-200"><p>{text.error}</p><button type="button" onClick={() => void fetchFeed()} className="mt-5 inline-flex items-center gap-2 rounded-xl bg-rose-700 px-4 py-2 font-bold text-white"><RotateCcw className="h-4 w-4" />{text.retry}</button></div>}
-      {!loading && !error && visibleItems.length === 0 && <div className="mt-10 rounded-3xl border border-dashed border-slate-300 py-20 text-center text-slate-500 dark:border-white/15 dark:text-slate-400">{text.empty}</div>}
+      {loadFeed && !loading && !error && visibleItems.length === 0 && <div className="mt-10 rounded-3xl border border-dashed border-slate-300 py-20 text-center text-slate-500 dark:border-white/15 dark:text-slate-400">{text.empty}</div>}
       {!loading && !error && visibleItems.length > 0 && <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">{visibleItems.map((item) => <TrendCard key={item.id} item={item} language={language} readOriginalLabel={text.readOriginal} />)}</div>}
     </section>
   );
